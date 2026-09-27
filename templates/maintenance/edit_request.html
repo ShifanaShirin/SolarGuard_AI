@@ -1,0 +1,137 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}
+Edit Maintenance Request
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+<h2 class="mb-4">
+
+Edit Maintenance Request
+
+</h2>
+
+<form method="POST">
+
+<div class="mb-3">
+
+<label>Solar Panel</label>
+
+<select
+class="form-select"
+name="panel_id">
+
+{% for panel in panels %}
+
+<option
+value="{{ panel.panel_id }}"
+{% if panel.panel_id==request_data.panel_id %}
+selected
+{% endif %}>
+
+{{ panel.panel_name }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label>Issue Type</label>
+
+<select
+class="form-select"
+name="issue_type">
+
+{% for issue in [
+'Cleaning',
+'Dust Accumulation',
+'Physical Damage',
+'Loose Wiring',
+'Hot Spot',
+'Inverter Issue',
+'Performance Drop',
+'Other'
+] %}
+
+<option
+value="{{ issue }}"
+{% if issue==request_data.issue_type %}
+selected
+{% endif %}>
+
+{{ issue }}
+
+</option>
+
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label>Priority</label>
+
+<select
+class="form-select"
+name="priority">
+
+<option
+{% if request_data.priority=="Low" %}selected{% endif %}>
+Low
+</option>
+
+<option
+{% if request_data.priority=="Medium" %}selected{% endif %}>
+Medium
+</option>
+
+<option
+{% if request_data.priority=="High" %}selected{% endif %}>
+High
+</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label>Description</label>
+
+<textarea
+class="form-control"
+rows="5"
+name="description">{{ request_data.description }}</textarea>
+
+</div>
+
+<button
+class="btn btn-success">
+
+Update Request
+
+</button>
+
+<a
+href="{{ url_for('maintenance.my_requests') }}"
+class="btn btn-secondary">
+
+Cancel
+
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,291 @@
+{% extends "layouts/admin_dashboard_base.html" %}
+
+
+{% block title %}
+Users
+{% endblock %}
+
+
+{% block content %}
+
+<div class="admin-dashboard">
+
+
+    <!-- HEADER -->
+
+    <div class="admin-page-header">
+
+        <h2>
+
+            <i class="bi bi-people-fill me-2"></i>
+
+            Users
+
+        </h2>
+
+        <p>
+            View and manage registered SolarGuard AI users.
+        </p>
+
+    </div>
+
+
+
+    <!-- USER STATISTICS -->
+
+    <div class="row g-4 mb-5">
+
+
+        <div class="col-lg-4">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-people-fill"></i>
+
+                </div>
+
+                <h6>
+                    Registered Users
+                </h6>
+
+                <h2>
+                    {{ users|length }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-grid-3x3-gap-fill"></i>
+
+                </div>
+
+                <h6>
+                    Total Solar Panels
+                </h6>
+
+                <h2>
+                    {{ users | sum(attribute='panel_count') }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-4">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-tools"></i>
+
+                </div>
+
+                <h6>
+                    Maintenance Requests
+                </h6>
+
+                <h2>
+                    {{ users | sum(attribute='maintenance_count') }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- USER TABLE -->
+
+    <div class="dashboard-card">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <h4 class="text-white mb-1">
+
+                    <i class="bi bi-person-lines-fill text-success me-2"></i>
+
+                    Registered Users
+
+                </h4>
+
+                <p class="section-subtitle mb-0">
+                    User accounts and system activity
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table dashboard-table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>User</th>
+
+                        <th>Email</th>
+
+                        <th>Phone</th>
+
+                        <th>Panels</th>
+
+                        <th>Requests</th>
+
+                        <th>Completed</th>
+
+                        <th>Pending</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if users %}
+
+                        {% for user in users %}
+
+                        <tr>
+
+                            <td>
+
+                                <strong>
+                                    {{ user.full_name }}
+                                </strong>
+
+                            </td>
+
+
+                            <td>
+                                {{ user.email }}
+                            </td>
+
+
+                            <td>
+                                {{ user.phone or "Not provided" }}
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-info">
+
+                                    {{ user.panel_count }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    {{ user.maintenance_count }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-success">
+
+                                    {{ user.completed_count }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-warning text-dark">
+
+                                    {{ user.pending_count }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <a
+                                    href="{{ url_for(
+                                        'admin.user_details',
+                                        user_id=user.user_id
+                                    ) }}"
+                                    class="btn btn-sm btn-outline-success"
+                                >
+
+                                    <i class="bi bi-eye me-1"></i>
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="text-center py-5"
+                            >
+
+                                <i class="bi bi-people fs-1 text-muted"></i>
+
+                                <p class="text-muted mt-3 mb-0">
+
+                                    No users found.
+
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

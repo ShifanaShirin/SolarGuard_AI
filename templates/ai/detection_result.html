@@ -1,0 +1,242 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}AI Detection Result | SolarGuard AI{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Header -->
+    <div class="mb-4">
+
+        <h2 class="fw-bold mb-1">
+            AI Detection Result
+        </h2>
+
+        <p class="text-muted mb-0">
+            SolarGuard AI analysis of your solar panel image.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- Image -->
+        <div class="col-lg-5">
+
+            <div class="card border-0 shadow-lg h-100">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold mb-3">
+                        Uploaded Image
+                    </h5>
+
+                    <img
+                        src="{{ url_for('static', filename=image_path) }}"
+                        class="img-fluid rounded-4 w-100"
+                        style="max-height:450px; object-fit:cover;"
+                        alt="Solar Panel Image"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Result -->
+        <div class="col-lg-7">
+
+            <div class="card border-0 shadow-lg h-100">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold mb-4">
+                        Detection Analysis
+                    </h5>
+
+
+                    <!-- Panel -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            Solar Panel
+                        </small>
+
+                        <h5 class="fw-semibold">
+                            {{ panel.panel_name }}
+                        </h5>
+
+                    </div>
+
+
+                    <!-- Prediction -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            Detected Condition
+                        </small>
+
+                        <h3 class="fw-bold text-success">
+                            {{ result.prediction }}
+                        </h3>
+
+                    </div>
+
+
+                    <!-- Confidence -->
+                    <div class="mb-4">
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <span class="text-muted">
+                                AI Confidence
+                            </span>
+
+                            <strong>
+                                {{ result.confidence }}%
+                            </strong>
+
+                        </div>
+
+                        <div
+    class="progress"
+    style="height:12px;"
+>
+
+    <div
+        id="confidenceBar"
+        class="progress-bar bg-success"
+        role="progressbar"
+        data-confidence="{{ result.confidence }}"
+        aria-valuenow="{{ result.confidence }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+    ></div>
+
+</div>
+
+                    </div>
+
+                    <!-- Estimated Efficiency -->
+<div class="mb-4">
+
+    <small class="text-muted">
+        Estimated Panel Efficiency
+    </small>
+
+    <div class="d-flex align-items-center gap-3 mt-2">
+
+        <h3 class="fw-bold text-success mb-0">
+            {{ estimated_efficiency }}%
+        </h3>
+
+        <span class="text-muted">
+            estimated
+        </span>
+
+    </div>
+
+</div>
+
+
+                    <!-- Maintenance -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            Maintenance Required
+                        </small>
+
+                        <div class="mt-2">
+
+                            {% if maintenance_required == "Yes" %}
+
+                                <span class="badge bg-warning text-dark px-3 py-2">
+                                    Yes
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-success px-3 py-2">
+                                    No
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Recommendation -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            AI Recommendation
+                        </small>
+
+                        <div class="alert alert-secondary mt-2 mb-0">
+
+                            {{ recommendation }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Detection ID -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            Detection ID
+                        </small>
+
+                        <div>
+                            #{{ detection_id }}
+                        </div>
+
+                    </div>
+
+
+                    <!-- Buttons -->
+                    <div class="d-flex gap-2 flex-wrap">
+
+                        <a
+                            href="{{ url_for('ai.detection') }}"
+                            class="btn btn-success"
+                        >
+                            🔍 Analyze Another Image
+                        </a>
+
+                        <a
+                            href="{{ url_for('panel.my_panels') }}"
+                            class="btn btn-outline-secondary"
+                        >
+                            My Solar Panels
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const confidenceBar = document.getElementById("confidenceBar");
+
+    if (confidenceBar) {
+        const confidence = confidenceBar.dataset.confidence;
+
+        confidenceBar.style.width = confidence + "%";
+    }
+</script>
+{% endblock %}

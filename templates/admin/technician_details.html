@@ -1,0 +1,449 @@
+{% extends "layouts/admin_dashboard_base.html" %}
+
+
+{% block title %}
+Technician Details
+{% endblock %}
+
+
+{% block content %}
+
+<div class="admin-dashboard">
+
+
+    <!-- BACK -->
+
+    <div class="mb-4">
+
+        <a
+            href="{{ url_for('admin.technicians') }}"
+            class="report-back-link"
+        >
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            Back to Technicians
+
+        </a>
+
+    </div>
+
+
+
+    <!-- TECHNICIAN HEADER -->
+
+    <div class="dashboard-card mb-4">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <div class="admin-action-icon mb-0">
+
+                <i class="bi bi-person-gear"></i>
+
+            </div>
+
+
+            <div>
+
+                <h3 class="text-white mb-1">
+
+                    {{ technician.full_name }}
+
+                </h3>
+
+                <p class="report-muted mb-0">
+
+                    Technician ID #{{ technician.technician_id }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TECHNICIAN INFORMATION -->
+
+    <div class="dashboard-card mb-4">
+
+        <h4 class="mb-4">
+
+            <i class="bi bi-person-vcard text-success me-2"></i>
+
+            Technician Information
+
+        </h4>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-4">
+
+                <div class="report-item">
+
+                    <small>Full Name</small>
+
+                    <div>
+                        {{ technician.full_name }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="report-item">
+
+                    <small>Email</small>
+
+                    <div>
+                        {{ technician.email }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="report-item">
+
+                    <small>Phone</small>
+
+                    <div>
+                        {{ technician.phone or "Not provided" }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- JOB SUMMARY -->
+
+    <div class="row g-4 mb-4">
+
+
+        <div class="col-xl-2 col-md-4">
+
+            <div class="admin-stat-card">
+
+                <h6>Total</h6>
+
+                <h2>
+                    {{ jobs|length }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-xl-2 col-md-4">
+
+            <div class="admin-stat-card">
+
+                <h6>Assigned</h6>
+
+                <h2>
+                    {{ jobs | selectattr(
+                        'assignment_status',
+                        'equalto',
+                        'Assigned'
+                    ) | list | length }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-xl-2 col-md-4">
+
+            <div class="admin-stat-card">
+
+                <h6>Accepted</h6>
+
+                <h2>
+                    {{ jobs | selectattr(
+                        'assignment_status',
+                        'equalto',
+                        'Accepted'
+                    ) | list | length }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-xl-2 col-md-4">
+
+            <div class="admin-stat-card">
+
+                <h6>In Progress</h6>
+
+                <h2>
+                    {{ jobs | selectattr(
+                        'assignment_status',
+                        'equalto',
+                        'In Progress'
+                    ) | list | length }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-xl-2 col-md-4">
+
+            <div class="admin-stat-card">
+
+                <h6>Completed</h6>
+
+                <h2>
+                    {{ jobs | selectattr(
+                        'assignment_status',
+                        'equalto',
+                        'Completed'
+                    ) | list | length }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-xl-2 col-md-4">
+
+            <div class="admin-stat-card">
+
+                <h6>Rejected</h6>
+
+                <h2>
+                    {{ jobs | selectattr(
+                        'assignment_status',
+                        'equalto',
+                        'Rejected'
+                    ) | list | length }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ASSIGNED JOBS -->
+
+    <div class="dashboard-card">
+
+        <h4 class="mb-1">
+
+            <i class="bi bi-tools text-success me-2"></i>
+
+            Assigned Maintenance Jobs
+
+        </h4>
+
+        <p class="section-subtitle mb-4">
+
+            Complete maintenance history for this technician
+
+        </p>
+
+
+        <div class="table-responsive">
+
+            <table class="table dashboard-table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Request</th>
+
+                        <th>Customer</th>
+
+                        <th>Panel</th>
+
+                        <th>Issue</th>
+
+                        <th>Priority</th>
+
+                        <th>Status</th>
+
+                        <th>Assigned Date</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if jobs %}
+
+                        {% for job in jobs %}
+
+                        <tr>
+
+                            <td>
+                                #{{ job.request_id }}
+                            </td>
+
+                            <td>
+                                {{ job.customer_name }}
+                            </td>
+
+                            <td>
+
+                                {{ job.panel_name }}
+
+                                <br>
+
+                                <small class="text-muted">
+
+                                    {{ job.location or "-" }}
+
+                                </small>
+
+                            </td>
+
+                            <td>
+                                {{ job.issue_type }}
+                            </td>
+
+
+                            <td>
+
+                                {% if job.priority == "High" %}
+
+                                    <span class="badge bg-danger">
+                                        High
+                                    </span>
+
+                                {% elif job.priority == "Medium" %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        Medium
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-success">
+                                        Low
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td>
+
+                                {% if job.assignment_status == "Assigned" %}
+
+                                    <span class="badge bg-primary">
+                                        Assigned
+                                    </span>
+
+                                {% elif job.assignment_status == "Accepted" %}
+
+                                    <span class="badge bg-info">
+                                        Accepted
+                                    </span>
+
+                                {% elif job.assignment_status == "In Progress" %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        In Progress
+                                    </span>
+
+                                {% elif job.assignment_status == "Completed" %}
+
+                                    <span class="badge bg-success">
+                                        Completed
+                                    </span>
+
+                                {% elif job.assignment_status == "Rejected" %}
+
+                                    <span class="badge bg-danger">
+                                        Rejected
+                                    </span>
+
+                                {% elif job.assignment_status == "Cancelled" %}
+
+                                    <span class="badge bg-secondary">
+                                        Cancelled
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+                                        {{ job.assignment_status }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ job.assigned_date.strftime("%d %b %Y")
+                                   if job.assigned_date else "-" }}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="7"
+                                class="text-center py-5">
+
+                                <i class="bi bi-clipboard-x fs-1 text-muted"></i>
+
+                                <p class="text-muted mt-3">
+
+                                    No maintenance jobs assigned.
+
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

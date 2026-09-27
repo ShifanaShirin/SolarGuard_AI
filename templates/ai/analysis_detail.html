@@ -1,0 +1,344 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}AI Analysis Details | SolarGuard AI{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">
+                AI Analysis Details
+            </h2>
+
+            <p class="text-muted mb-0">
+                Detailed analysis of your solar panel condition.
+            </p>
+        </div>
+
+        <a href="{{ url_for('ai.history') }}"
+           class="btn btn-outline-success">
+
+            ← Back to AI Analysis
+
+        </a>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="row g-4">
+
+        <!-- Uploaded Image -->
+        <div class="col-lg-5">
+
+            <div class="card border-0 shadow-lg h-100">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold mb-3">
+                        Analyzed Image
+                    </h5>
+
+                    <div class="rounded-4 overflow-hidden">
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename=detection.image_path
+                            ) }}"
+                            class="img-fluid w-100"
+                            style="
+                                max-height:500px;
+                                object-fit:cover;
+                            "
+                            alt="Solar Panel AI Analysis"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Analysis Information -->
+        <div class="col-lg-7">
+
+            <div class="card border-0 shadow-lg h-100">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold mb-4">
+                        Detection Analysis
+                    </h5>
+
+
+                    <!-- Panel -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            Solar Panel
+                        </small>
+
+                        <h5 class="fw-semibold mt-1">
+                            {{ panel.panel_name }}
+                        </h5>
+
+                        {% if panel.location %}
+
+                        <small class="text-muted">
+                            📍 {{ panel.location }}
+                        </small>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- Detected Condition -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            Detected Condition
+                        </small>
+
+                        <div class="mt-2">
+
+                            {% if detection.detected_defect == "Clean" %}
+
+                                <span class="badge bg-success px-3 py-2 fs-6">
+                                    Clean
+                                </span>
+
+                            {% elif detection.detected_defect == "Dusty" %}
+
+                                <span class="badge bg-warning text-dark px-3 py-2 fs-6">
+                                    Dusty
+                                </span>
+
+                            {% elif detection.detected_defect == "Bird-Drop" %}
+
+                                <span class="badge bg-info text-dark px-3 py-2 fs-6">
+                                    Bird-Drop
+                                </span>
+
+                            {% elif detection.detected_defect == "Electrical-Damage" %}
+
+                                <span class="badge bg-danger px-3 py-2 fs-6">
+                                    Electrical Damage
+                                </span>
+
+                            {% elif detection.detected_defect == "Physical-Damage" %}
+
+                                <span class="badge bg-danger px-3 py-2 fs-6">
+                                    Physical Damage
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary px-3 py-2 fs-6">
+                                    {{ detection.detected_defect }}
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Confidence -->
+                    <div class="mb-4">
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <small class="text-muted">
+                                AI Confidence
+                            </small>
+
+                            <strong>
+                                {{ detection.confidence_score }}%
+                            </strong>
+
+                        </div>
+
+                        <div
+                            class="progress"
+                            style="height:12px;"
+                        >
+
+                            <div
+    class="progress-bar bg-success"
+    role="progressbar"
+    data-confidence="{{ detection.confidence_score }}"
+    aria-valuenow="{{ detection.confidence_score }}"
+    aria-valuemin="0"
+    aria-valuemax="100"
+>
+</div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Efficiency -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            Estimated Panel Efficiency
+                        </small>
+
+                        <div class="d-flex align-items-center gap-2 mt-1">
+
+                            <h3 class="fw-bold text-success mb-0">
+                                {{ detection.estimated_efficiency }}%
+                            </h3>
+
+                            <span class="text-muted">
+                                estimated
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Maintenance -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            Maintenance Required
+                        </small>
+
+                        <div class="mt-2">
+
+                            {% if detection.maintenance_required == "Yes" %}
+
+                                <span class="badge bg-warning text-dark px-3 py-2">
+                                    Yes
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-success px-3 py-2">
+                                    No
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Analysis Date -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            Analysis Date
+                        </small>
+
+                        <div class="fw-semibold mt-1">
+
+                            {{ detection.analyzed_at.strftime(
+                                '%d %B %Y, %I:%M %p'
+                            ) }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Detection ID -->
+                    <div class="mb-4">
+
+                        <small class="text-muted">
+                            Detection ID
+                        </small>
+
+                        <div class="fw-semibold mt-1">
+                            #{{ detection.detection_id }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Recommendation -->
+    <div class="row mt-4">
+
+        <div class="col-12">
+
+            <div class="card border-0 shadow-lg">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold mb-3">
+                        🤖 AI Recommendation
+                    </h5>
+
+                    <div class="alert alert-secondary mb-0">
+
+                        {{ detection.ai_recommendation }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Bottom Actions -->
+    <div class="d-flex gap-2 flex-wrap mt-4">
+
+        <a
+            href="{{ url_for('ai.detection') }}"
+            class="btn btn-success"
+        >
+            🤖 New AI Detection
+        </a>
+
+        <a
+            href="{{ url_for('ai.history') }}"
+            class="btn btn-outline-success"
+        >
+            📋 View All Analyses
+        </a>
+
+        <a
+            href="{{ url_for('panel.my_panels') }}"
+            class="btn btn-outline-secondary"
+        >
+            Solar Panels
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+    document.querySelectorAll('.progress-bar[data-confidence]').forEach(function(bar) {
+        const confidence = parseFloat(bar.dataset.confidence) || 0;
+        bar.style.width = confidence + '%';
+    });
+</script>
+
+{% endblock %}

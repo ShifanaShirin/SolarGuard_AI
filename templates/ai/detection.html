@@ -1,0 +1,223 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}AI Detection | SolarGuard AI{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold mb-1">
+                AI Solar Panel Detection
+            </h2>
+
+            <p class="text-muted mb-0">
+                Upload a solar panel image to detect visible defects using SolarGuard AI.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- AI Detection Card -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-8 col-lg-9 col-md-10">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <!-- AI Icon / Header -->
+                    <div class="text-center mb-4">
+
+                        <div
+                            class="mx-auto mb-3 d-flex align-items-center justify-content-center"
+                            style="
+                                width:80px;
+                                height:80px;
+                                border-radius:20px;
+                                background:rgba(25,135,84,0.15);
+                                font-size:36px;
+                            "
+                        >
+                            🤖
+                        </div>
+
+                        <h4 class="fw-bold">
+                            Analyze Solar Panel
+                        </h4>
+
+                        <p class="text-muted">
+                            Select a registered panel and upload its image.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Flash Messages -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+
+                        {% if messages %}
+
+                            {% for category, message in messages %}
+
+                                <div class="alert alert-{{ category }} alert-dismissible fade show">
+
+                                    {{ message }}
+
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="alert">
+                                    </button>
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    {% endwith %}
+
+
+                    <!-- Upload Form -->
+                    <form
+                        method="POST"
+                        enctype="multipart/form-data"
+                    >
+
+                        <!-- Panel Selection -->
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Select Solar Panel
+                            </label>
+
+                            <select
+                                name="panel_id"
+                                class="form-select"
+                                required
+                            >
+
+                                <option value="">
+                                    -- Select Solar Panel --
+                                </option>
+
+                                {% for panel in panels %}
+
+                                    <option value="{{ panel.panel_id }}">
+
+                                        {{ panel.panel_name }}
+
+                                        {% if panel.location %}
+                                            — {{ panel.location }}
+                                        {% endif %}
+
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                            {% if not panels %}
+
+                                <small class="text-warning">
+                                    No solar panels are registered yet.
+                                </small>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- Image Upload -->
+                        <div class="mb-4">
+
+                            <label class="form-label fw-semibold">
+                                Upload Solar Panel Image
+                            </label>
+
+                            <div
+                                class="border rounded-4 p-4 text-center"
+                                style="border-style:dashed !important;"
+                            >
+
+                                <div
+                                    class="mb-3"
+                                    style="font-size:42px;"
+                                >
+                                    📷
+                                </div>
+
+                                <p class="mb-2">
+                                    Choose a clear image of the solar panel
+                                </p>
+
+                                <p class="text-muted small">
+                                    Supported formats: JPG, JPEG, PNG, WEBP
+                                </p>
+
+                                <input
+                                    type="file"
+                                    name="image"
+                                    class="form-control"
+                                    accept=".jpg,.jpeg,.png,.webp"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Information -->
+                        <div class="alert alert-info">
+
+                            <strong>AI Detection:</strong>
+
+                            <span>
+                                The system analyzes the uploaded image
+                                and detects conditions such as
+                                Clean, Dusty, Bird-Drop,
+                                Electrical-Damage and Physical-Damage.
+                            </span>
+
+                        </div>
+
+
+                        <!-- Submit -->
+                        <div class="text-center mt-4 d-flex justify-content-center gap-2 flex-wrap">
+
+    <button
+        type="submit"
+        class="btn btn-success px-5 py-3"
+    >
+        🤖 Analyze with AI
+    </button>
+
+    <a
+        href="{{ url_for('ai.history') }}"
+        class="btn btn-outline-success px-5 py-3"
+    >
+        📋 View Past Detections
+    </a>
+
+</div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

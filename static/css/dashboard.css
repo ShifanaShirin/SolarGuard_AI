@@ -1,0 +1,2229 @@
+/* ==========================================================
+   SOLARGUARD AI DASHBOARD
+   Part 1 - Global Styles + Navbar
+========================================================== */
+
+/* Google Font */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:
+    radial-gradient(circle at top right,#12372B 0%,transparent 28%),
+    radial-gradient(circle at bottom left,#163B67 0%,transparent 28%),
+    #0B1120;
+
+    color:#F8FAFC;
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#101827;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#16a34a;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#22c55e;
+
+}
+
+/* ==========================================================
+   Navbar
+========================================================== */
+
+.dashboard-navbar{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+    background:rgba(15,23,42,.85);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    padding:14px 0;
+
+}
+
+.dashboard-navbar .navbar-brand{
+
+    font-family:'Outfit',sans-serif;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#22c55e !important;
+
+    letter-spacing:.5px;
+
+}
+
+.dashboard-navbar .navbar-brand:hover{
+
+    color:#4ADE80 !important;
+
+}
+
+/* Navigation */
+
+.dashboard-navbar .nav-link{
+
+    color:#CBD5E1 !important;
+
+    font-weight:500;
+
+    margin-left:18px;
+
+    position:relative;
+
+    transition:.3s;
+
+}
+
+.dashboard-navbar .nav-link:hover{
+
+    color:#22c55e !important;
+
+}
+
+.dashboard-navbar .nav-link.active{
+
+    color:#22c55e !important;
+
+}
+
+.dashboard-navbar .nav-link.active::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-10px;
+
+    width:100%;
+
+    height:3px;
+
+    background:#22c55e;
+
+    border-radius:30px;
+
+}
+
+/* ==========================================================
+   Notification Button
+========================================================== */
+
+.notification-btn{
+
+    position:relative;
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#141C2F;
+
+    color:white;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+.notification-btn:hover{
+
+    background:#1D4ED8;
+
+    transform:translateY(-3px);
+
+}
+
+.notification-dot{
+
+    position:absolute;
+
+    top:10px;
+
+    right:10px;
+
+    width:9px;
+
+    height:9px;
+
+    background:#EF4444;
+
+    border-radius:50%;
+
+}
+
+/* ==========================================================
+   Profile
+========================================================== */
+
+.profile-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.profile-avatar{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:white;
+
+    box-shadow:0 10px 25px rgba(34,197,94,.25);
+
+}
+
+.profile-name{
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:white;
+
+}
+
+.profile-role{
+
+    font-size:13px;
+
+    color:#94A3B8;
+
+}
+
+/* ==========================================================
+   Buttons
+========================================================== */
+
+.btn-success{
+
+    background:#16a34a;
+
+    border:none;
+
+    border-radius:14px;
+
+    padding:10px 24px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-success:hover{
+
+    background:#22c55e;
+
+    transform:translateY(-4px);
+
+    box-shadow:0 15px 35px rgba(34,197,94,.30);
+
+}
+
+/* ==========================================================
+   Dashboard Container
+========================================================== */
+
+.dashboard-container{
+
+    padding:35px;
+
+}
+
+/* ==========================================================
+   Welcome Banner
+========================================================== */
+
+.welcome-banner{
+
+    position:relative;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:40px;
+
+    padding:40px;
+
+    margin-bottom:40px;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    background:linear-gradient(135deg,#131D33,#16253C);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+
+}
+
+/* Green Glow */
+
+.welcome-banner::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:320px;
+
+    height:320px;
+
+    background:#16A34A22;
+
+    right:-120px;
+
+    top:-100px;
+
+    filter:blur(120px);
+
+    border-radius:50%;
+
+}
+
+/* Blue Glow */
+
+.welcome-banner::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+
+    height:250px;
+
+    background:#2563EB22;
+
+    left:-100px;
+
+    bottom:-100px;
+
+    filter:blur(100px);
+
+    border-radius:50%;
+
+}
+
+.welcome-left{
+
+    flex:2;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+.welcome-right{
+
+    flex:1;
+
+    position:relative;
+
+    z-index:2;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+}
+
+/* Badge */
+
+.welcome-tag{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    background:#16A34A;
+
+    color:white;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+
+    margin-bottom:20px;
+
+}
+
+/* Heading */
+
+.welcome-banner h2{
+
+    font-family:'Outfit',sans-serif;
+
+    font-size:50px;
+
+    font-weight:800;
+
+    margin-bottom:15px;
+
+    color:white;
+
+    line-height:1.2;
+
+}
+
+.welcome-banner p{
+
+    font-size:18px;
+
+    color:#A8B3CF;
+
+    line-height:1.8;
+
+    max-width:700px;
+
+}
+
+/* ==========================================================
+   Today's Overview Card
+========================================================== */
+
+.today-card{
+
+    width:300px;
+
+    padding:28px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.05);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.35s;
+
+}
+
+.today-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 20px 45px rgba(34,197,94,.20);
+
+}
+
+.today-card h5{
+
+    font-size:20px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+    color:white;
+
+}
+
+.today-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:14px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    color:#CBD5E1;
+
+}
+
+.today-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.today-item strong{
+
+    color:#22C55E;
+
+    font-weight:700;
+
+}
+
+/* ==========================================================
+   Animation
+========================================================== */
+
+.welcome-banner{
+
+    animation:fadeDown .7s ease;
+
+}
+
+.today-card{
+
+    animation:fadeRight .9s ease;
+
+}
+
+@keyframes fadeDown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fadeRight{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+/* ==========================================================
+   PREMIUM ANALYTICS CARDS
+========================================================== */
+
+.stat-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:linear-gradient(145deg,#161F34,#101827);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:28px;
+
+    height:100%;
+
+    transition:.35s;
+
+    cursor:pointer;
+
+}
+
+.stat-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    background:#22C55E20;
+
+    right:-70px;
+
+    top:-70px;
+
+    border-radius:50%;
+
+    filter:blur(70px);
+
+}
+
+.stat-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#22C55E;
+
+    box-shadow:0 25px 60px rgba(34,197,94,.20);
+
+}
+
+/* -------------------- */
+
+.stat-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+/* -------------------- */
+
+.stat-icon{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:22px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:32px;
+
+    color:white;
+
+    background:linear-gradient(135deg,#16A34A,#22C55E);
+
+    box-shadow:0 15px 35px rgba(34,197,94,.30);
+
+}
+
+/* -------------------- */
+
+.stat-badge{
+
+    padding:7px 14px;
+
+    border-radius:30px;
+
+    background:rgba(34,197,94,.12);
+
+    color:#22C55E;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/* -------------------- */
+
+.stat-card h5{
+
+    color:#CBD5E1;
+
+    font-size:16px;
+
+    font-weight:500;
+
+    margin-bottom:12px;
+
+}
+
+/* -------------------- */
+
+.stat-card h2{
+
+    font-family:'Outfit',sans-serif;
+
+    font-size:52px;
+
+    font-weight:800;
+
+    color:white;
+
+    margin-bottom:8px;
+
+}
+
+/* -------------------- */
+
+.stat-card p{
+
+    color:#94A3B8;
+
+    font-size:14px;
+
+    margin:0;
+
+}
+
+/* -------------------- */
+
+.stat-card{
+
+    animation:fadeUp .7s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================================
+   QUICK ACTIONS
+========================================================== */
+
+.section-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.section-header h3{
+
+    font-family:'Outfit',sans-serif;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+.section-header p{
+
+    color:#94A3B8;
+
+    margin:5px 0 0;
+
+}
+
+.quick-card{
+
+    display:block;
+
+    text-decoration:none;
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:30px;
+
+    border-radius:24px;
+
+    background:linear-gradient(145deg,#161F34,#101827);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.35s;
+
+    color:white;
+
+    height:100%;
+
+}
+
+.quick-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:160px;
+
+    height:160px;
+
+    background:#2563EB15;
+
+    right:-60px;
+
+    top:-60px;
+
+    filter:blur(70px);
+
+}
+
+.quick-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#22C55E;
+
+    box-shadow:0 25px 55px rgba(34,197,94,.20);
+
+    color:white;
+
+}
+
+.quick-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:32px;
+
+    background:linear-gradient(135deg,#16A34A,#22C55E);
+
+    margin-bottom:25px;
+
+}
+
+.quick-card h5{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+.quick-card p{
+
+    color:#94A3B8;
+
+    margin-bottom:25px;
+
+    line-height:1.7;
+
+}
+
+.quick-card span{
+
+    color:#22C55E;
+
+    font-weight:600;
+
+}
+
+/* ==========================================================
+   AI INSIGHTS
+========================================================== */
+
+.section-subtitle{
+
+    color:#94A3B8;
+
+    margin:4px 0 0;
+
+    font-size:14px;
+
+}
+
+.ai-widget{
+
+    background:linear-gradient(145deg,#161F34,#101827);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:30px;
+
+    height:100%;
+
+    transition:.35s;
+
+}
+
+.ai-widget:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#22C55E;
+
+    box-shadow:0 25px 55px rgba(34,197,94,.18);
+
+}
+
+.ai-header{
+
+    font-family:'Outfit',sans-serif;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    margin-bottom:25px;
+
+}
+
+.ai-score{
+
+    font-size:70px;
+
+    font-weight:800;
+
+    font-family:'Outfit',sans-serif;
+
+    color:#22C55E;
+
+    text-align:center;
+
+}
+
+.ai-widget p{
+
+    text-align:center;
+
+    color:#94A3B8;
+
+    margin-bottom:25px;
+
+}
+
+.ai-widget hr{
+
+    border-color:rgba(255,255,255,.08);
+
+}
+
+.ai-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:14px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+}
+
+.ai-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.ai-item span{
+
+    color:#CBD5E1;
+
+}
+
+.ai-item strong{
+
+    color:#22C55E;
+
+}
+
+/* ==========================================================
+   REGISTER PANEL
+========================================================== */
+
+.dashboard-card{
+
+    background:linear-gradient(145deg,#161F34,#101827);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:35px;
+
+    box-shadow:0 25px 55px rgba(0,0,0,.25);
+
+}
+
+.dashboard-card .form-label{
+
+    color:#E5E7EB;
+
+    font-weight:500;
+
+    margin-bottom:8px;
+
+}
+
+.dashboard-card .form-control{
+
+    background:#0F172A;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+    height:55px;
+
+    border-radius:14px;
+
+}
+
+.dashboard-card textarea.form-control{
+
+    height:auto;
+
+    resize:none;
+
+    padding:15px;
+
+}
+
+.dashboard-card .form-control:focus{
+
+    background:#0F172A;
+
+    color:white;
+
+    border-color:#22C55E;
+
+    box-shadow:0 0 18px rgba(34,197,94,.25);
+
+}
+
+.dashboard-card .btn-outline-light{
+
+    border-radius:14px;
+
+    padding:10px 24px;
+
+}
+
+/* ==========================================================
+   MY PANELS
+========================================================== */
+
+.dashboard-table{
+
+    color:#E5E7EB;
+
+}
+
+.dashboard-table thead{
+
+    background:#111827;
+
+}
+
+.dashboard-table th{
+
+    color:#CBD5E1;
+
+    border:none;
+
+    padding:18px;
+
+}
+
+.dashboard-table td{
+
+    border-color:rgba(255,255,255,.05);
+
+    padding:18px;
+
+    vertical-align:middle;
+
+}
+
+.dashboard-table tbody tr{
+
+    transition:.3s;
+
+}
+
+.dashboard-table tbody tr:hover{
+
+    background:rgba(34,197,94,.05);
+
+}
+
+.dashboard-table .btn{
+
+    border-radius:10px;
+
+    margin-right:6px;
+
+}
+.stats-card{
+
+    background:linear-gradient(135deg,#1A2238,#24304D);
+
+    border:1px solid #2F3B5C;
+
+    border-radius:18px;
+
+    color:white;
+
+    transition:.3s;
+
+    height:100%;
+
+}
+
+.stats-card:hover{
+
+    transform:translateY(-6px);
+
+    border-color:#22C55E;
+
+}
+
+.quick-card{
+
+    background:#111827;
+
+    border:1px solid #2F3B5C;
+
+    border-radius:18px;
+
+    display:block;
+
+    padding:30px;
+
+    text-align:center;
+
+    color:white;
+
+    transition:.3s;
+
+    height:100%;
+
+}
+
+.quick-card:hover{
+
+    background:#1A2238;
+
+    border-color:#22C55E;
+
+    transform:translateY(-6px);
+
+}
+
+.quick-card p{
+
+    color:#9CA3AF;
+
+}
+
+.detail-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:14px 0;
+
+    border-bottom:1px solid rgba(255,255,255,0.08);
+
+}
+
+.detail-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.detail-item span{
+
+    color:#9CA3AF;
+
+}
+
+.detail-item strong{
+
+    color:#F9FAFB;
+
+    text-align:right;
+
+}
+
+.description-box{
+
+    background:#111827;
+
+    border:1px solid #2F3B5C;
+
+    border-radius:12px;
+
+    padding:16px;
+
+    color:#D1D5DB;
+
+    line-height:1.7;
+
+}
+
+/* =========================================================
+   TECHNICIAN MAINTENANCE REPORT
+   TEXT VISIBILITY
+   ========================================================= */
+
+/* Main report headings */
+.dashboard-card h4 {
+    color: #ffffff !important;
+}
+
+/* Report page main heading */
+.dashboard-container h2 {
+    color: #ffffff !important;
+}
+
+/* Panel name in report header */
+.dashboard-card h4.mb-1 {
+    color: #ffffff !important;
+}
+
+/* Bootstrap text-muted override */
+.dashboard-card .text-muted {
+    color: #aebbd0 !important;
+}
+
+/* Small field labels */
+.dashboard-card small.text-muted {
+    color: #9fb0c7 !important;
+    font-weight: 500;
+}
+
+/* Normal field values */
+.dashboard-card .fw-semibold {
+    color: #f5f7fa !important;
+}
+
+/* Completion section headings */
+.dashboard-card h6.fw-semibold {
+    color: #ffffff !important;
+}
+
+/* Completion text */
+.dashboard-card p.text-muted {
+    color: #c4cfdd !important;
+    line-height: 1.7;
+}
+
+/* Report request number */
+.dashboard-container > .mb-4 p.text-muted {
+    color: #9fb0c7 !important;
+}
+
+/* Back to dashboard */
+.dashboard-container .text-success {
+    color: #22c55e !important;
+}
+
+/* Green icons */
+.dashboard-card .text-success {
+    color: #22c55e !important;
+}
+
+/* Report status badge */
+.dashboard-card .badge.bg-success {
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   REPORT HEADER
+   ========================================================= */
+
+.dashboard-card .mb-1 {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   SERVICE IMAGE
+   ========================================================= */
+
+.dashboard-card img {
+    border-radius: 12px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* =========================================================
+   SOLARGUARD AI - GLOBAL DARK THEME
+   Remove Bootstrap white backgrounds throughout dashboard
+   ========================================================= */
+
+/* ---------- GLOBAL ---------- */
+
+body {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(20, 57, 45, 0.45) 0%,
+            transparent 30%
+        ),
+        #08101f !important;
+
+    color: #f8fafc;
+}
+
+
+/* ---------- MAIN CONTENT ---------- */
+
+.dashboard-container {
+    background: transparent !important;
+    color: #f8fafc;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card,
+.dashboard-card,
+.stats-card,
+.stat-card {
+    background: #111a2b !important;
+    color: #f8fafc !important;
+    border: 1px solid #283754 !important;
+}
+
+
+/* Card headings */
+
+.card h1,
+.card h2,
+.card h3,
+.card h4,
+.card h5,
+.card h6,
+.dashboard-card h1,
+.dashboard-card h2,
+.dashboard-card h3,
+.dashboard-card h4,
+.dashboard-card h5,
+.dashboard-card h6,
+.stat-card h1,
+.stat-card h2,
+.stat-card h3,
+.stat-card h4,
+.stat-card h5,
+.stat-card h6 {
+    color: #ffffff !important;
+}
+
+
+/* Card paragraphs */
+
+.card p,
+.dashboard-card p,
+.stat-card p {
+    color: #cbd5e1 !important;
+}
+
+
+/* =========================================================
+   BOOTSTRAP TABLES
+   ========================================================= */
+
+.table {
+    --bs-table-bg: transparent !important;
+    --bs-table-color: #f8fafc !important;
+    --bs-table-border-color: #2a3550 !important;
+
+    background: transparent !important;
+    color: #f8fafc !important;
+}
+
+
+/* Table header */
+
+.table thead,
+.table thead tr {
+    background: #182235 !important;
+}
+
+.table thead th {
+    background: #182235 !important;
+    color: #ffffff !important;
+    border-color: #2a3550 !important;
+}
+
+
+/* Table rows */
+
+.table tbody tr {
+    background: #111a2b !important;
+    color: #f8fafc !important;
+}
+
+.table tbody td {
+    background: #111a2b !important;
+    color: #e5edf7 !important;
+    border-color: #2a3550 !important;
+}
+
+
+/* Row hover */
+
+.table tbody tr:hover td {
+    background: #19253a !important;
+}
+
+
+/* Remove Bootstrap striped white effect */
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    --bs-table-accent-bg: transparent !important;
+    background-color: #111a2b !important;
+}
+
+
+/* =========================================================
+   SEARCH / FILTER AREA
+   ========================================================= */
+
+.form-control,
+.form-select {
+    background-color: #111a2b !important;
+    color: #f8fafc !important;
+
+    border: 1px solid #34425f !important;
+}
+
+
+/* Placeholder */
+
+.form-control::placeholder {
+    color: #94a3b8 !important;
+}
+
+
+/* Select option */
+
+.form-select option {
+    background-color: #111a2b !important;
+    color: #f8fafc !important;
+}
+
+
+/* Focus */
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #111a2b !important;
+    color: #ffffff !important;
+
+    border-color: #22c55e !important;
+
+    box-shadow:
+        0 0 0 0.2rem rgba(34, 197, 94, 0.15) !important;
+}
+
+
+/* =========================================================
+   FORM LABELS
+   ========================================================= */
+
+.form-label {
+    color: #e5edf7 !important;
+}
+
+
+/* Small text */
+
+.text-muted {
+    color: #94a3b8 !important;
+}
+
+
+/* =========================================================
+   SEARCH / FILTER CONTAINERS
+   ========================================================= */
+
+.search-container,
+.filter-container,
+.filters-card,
+.filter-card {
+    background: #111a2b !important;
+    color: #f8fafc !important;
+    border: 1px solid #283754 !important;
+}
+
+
+/* =========================================================
+   BOOTSTRAP BG-WHITE / WHITE ELEMENTS
+   ========================================================= */
+
+.bg-white {
+    background-color: #111a2b !important;
+}
+
+
+/* =========================================================
+   LIST GROUP
+   ========================================================= */
+
+.list-group-item {
+    background-color: #111a2b !important;
+    color: #f8fafc !important;
+    border-color: #2a3550 !important;
+}
+
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+.modal-content {
+    background-color: #111a2b !important;
+    color: #f8fafc !important;
+    border: 1px solid #2a3550 !important;
+}
+
+.modal-header,
+.modal-footer {
+    border-color: #2a3550 !important;
+}
+
+.modal-title {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   DROPDOWN
+   ========================================================= */
+
+.dropdown-menu {
+    background-color: #111a2b !important;
+    border: 1px solid #2a3550 !important;
+}
+
+.dropdown-item {
+    color: #e5edf7 !important;
+}
+
+.dropdown-item:hover {
+    background-color: #19253a !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   ALERTS
+   ========================================================= */
+
+.alert {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn-outline-success {
+    color: #22c55e !important;
+    border-color: #22c55e !important;
+}
+
+.btn-outline-success:hover {
+    background-color: #22c55e !important;
+    color: #06100b !important;
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.page-link {
+    background-color: #111a2b !important;
+    color: #cbd5e1 !important;
+    border-color: #2a3550 !important;
+}
+
+.page-link:hover {
+    background-color: #19253a !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   HORIZONTAL RULE
+   ========================================================= */
+
+hr {
+    border-color: #2a3550 !important;
+    opacity: 1;
+}
+
+
+/* =========================================================
+   WHITE TEXT / DARK TEXT FIX
+   ========================================================= */
+
+.text-dark {
+    color: #e5edf7 !important;
+}
+
+
+/* =========================================================
+   MAINTENANCE TABLE SPECIFIC
+   ========================================================= */
+
+.maintenance-card {
+    background: #111a2b !important;
+    border: 1px solid #283754 !important;
+}
+
+.maintenance-table {
+    background: #111a2b !important;
+}
+
+.maintenance-table thead th {
+    background: #182235 !important;
+    color: #ffffff !important;
+}
+
+.maintenance-table tbody td {
+    background: #111a2b !important;
+    color: #e5edf7 !important;
+}
+
+
+/* =========================================================
+   EMPTY STATES
+   ========================================================= */
+
+.empty-state,
+.no-data {
+    background: #111a2b !important;
+    color: #cbd5e1 !important;
+    border: 1px solid #283754 !important;
+}
+
+/* =========================================================
+   MAINTENANCE REPORT
+   ========================================================= */
+
+.report-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    color: #20c968 !important;
+    font-weight: 500;
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+}
+
+.report-back-link:hover {
+    color: #42e58a !important;
+    transform: translateX(-3px);
+}
+
+
+.report-title {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+
+.report-subtitle {
+    color: #9ca9bd;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+}
+
+
+.report-muted {
+    color: #9ca9bd !important;
+}
+
+
+/* =========================================================
+   REPORT CARDS
+   ========================================================= */
+
+.dashboard-card {
+    background: #111a2d;
+    border: 1px solid #293752;
+    border-radius: 22px;
+    padding: 28px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+    border-color: #20c968;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   REPORT HEADINGS
+   ========================================================= */
+
+.dashboard-card h4 {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.dashboard-card h6 {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   REPORT INFORMATION
+   ========================================================= */
+
+.report-item {
+    margin-bottom: 22px;
+}
+
+.report-item:last-child {
+    margin-bottom: 0;
+}
+
+
+.report-item small {
+    display: block;
+
+    color: #8f9bb0;
+    font-size: 0.78rem;
+    font-weight: 500;
+
+    margin-bottom: 5px;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+.report-item > div {
+    color: #f5f7fa;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+
+.report-item h6 {
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+
+.report-item p {
+    color: #b7c1d2;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   REPORT STATUS
+   ========================================================= */
+
+.dashboard-card .badge {
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   REPORT SERVICE IMAGE
+   ========================================================= */
+
+.report-service-image {
+    max-height: 500px;
+    max-width: 100%;
+
+    object-fit: contain;
+
+    border: 1px solid #293752;
+    padding: 5px;
+
+    background: #0b1220;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================================
+   REPORT ICONS
+   ========================================================= */
+
+.dashboard-card h4 i {
+    font-size: 1.05em;
+}
+
+
+/* =========================================================
+   REPORT RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .report-title {
+        font-size: 1.6rem;
+    }
+
+    .dashboard-card {
+        padding: 20px;
+        border-radius: 18px;
+    }
+
+    .report-item {
+        margin-bottom: 18px;
+    }
+
+}
+
+/* =========================================================
+   ADMIN DASHBOARD - SOLARGUARD AI
+   ========================================================= */
+
+.admin-dashboard {
+    padding-bottom: 40px;
+}
+
+
+/* =========================================================
+   ADMIN PAGE HEADER
+   ========================================================= */
+
+.admin-page-header {
+    margin-bottom: 32px;
+}
+
+.admin-page-header h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.admin-page-header h2 i {
+    color: #20c968;
+}
+
+.admin-page-header p {
+    color: #9ca9bd;
+    font-size: 1rem;
+    margin: 0;
+}
+
+
+/* =========================================================
+   ADMIN STAT CARDS
+   ========================================================= */
+
+.admin-stat-card {
+    position: relative;
+
+    background: linear-gradient(
+        145deg,
+        #17223a,
+        #101a2d
+    );
+
+    border: 1px solid #2b3956;
+    border-radius: 18px;
+
+    padding: 22px 24px;
+
+    min-height: 125px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.admin-stat-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    right: -35px;
+    bottom: -45px;
+
+    background: rgba(32, 201, 104, 0.08);
+
+    border-radius: 50%;
+}
+
+.admin-stat-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #20c968;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.25),
+        0 0 20px rgba(32, 201, 104, 0.08);
+}
+
+
+.admin-stat-card h6 {
+    color: #aebbd0;
+
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    margin-bottom: 8px;
+}
+
+
+.admin-stat-card h2 {
+    color: #ffffff;
+
+    font-size: 2rem;
+    font-weight: 700;
+
+    margin: 0;
+}
+
+
+.admin-stat-icon {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(32, 201, 104, 0.12);
+
+    border: 1px solid rgba(32, 201, 104, 0.25);
+
+    color: #20c968;
+
+    font-size: 1.25rem;
+
+    margin-bottom: 14px;
+}
+
+
+/* =========================================================
+   QUICK ACTIONS SECTION
+   ========================================================= */
+
+.admin-quick-section {
+    margin-top: 42px;
+}
+
+
+.admin-section-title {
+    color: #ffffff;
+
+    font-size: 1.45rem;
+    font-weight: 600;
+
+    margin-bottom: 22px;
+}
+
+
+.admin-section-title i {
+    color: #20c968;
+}
+
+
+/* =========================================================
+   QUICK ACTION CARDS
+   ========================================================= */
+
+.admin-action-card {
+    height: 100%;
+
+    min-height: 245px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background: linear-gradient(
+        145deg,
+        #121c30,
+        #0f1829
+    );
+
+    border: 1px solid #2a3854;
+
+    border-radius: 20px;
+
+    padding: 30px 22px;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.admin-action-card:hover {
+    transform: translateY(-7px);
+
+    border-color: #20c968;
+
+    background: linear-gradient(
+        145deg,
+        #16243b,
+        #101d30
+    );
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.28),
+        0 0 25px rgba(32, 201, 104, 0.07);
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   QUICK ACTION ICON
+   ========================================================= */
+
+.admin-action-icon {
+    width: 65px;
+    height: 65px;
+
+    border-radius: 17px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(32, 201, 104, 0.10);
+
+    border: 1px solid rgba(32, 201, 104, 0.22);
+
+    color: #20c968;
+
+    font-size: 1.7rem;
+
+    margin-bottom: 20px;
+
+    transition: all 0.25s ease;
+}
+
+
+.admin-action-card:hover .admin-action-icon {
+    background: #20c968;
+
+    color: #07131b;
+
+    transform: scale(1.05);
+}
+
+
+.admin-action-card h4 {
+    color: #ffffff;
+
+    font-size: 1.2rem;
+    font-weight: 600;
+
+    margin-bottom: 10px;
+}
+
+
+.admin-action-card p {
+    color: #91a0b7;
+
+    font-size: 0.92rem;
+
+    line-height: 1.6;
+
+    max-width: 220px;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   REMOVE OLD QUICK ACTION OUTER BOX
+   ========================================================= */
+
+.admin-quick-container {
+    background: transparent !important;
+
+    border: none !important;
+
+    box-shadow: none !important;
+
+    padding: 0 !important;
+}
+
+
+/* =========================================================
+   ADMIN RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 992px) {
+
+    .admin-page-header h2 {
+        font-size: 1.7rem;
+    }
+
+    .admin-action-card {
+        min-height: 220px;
+    }
+
+}
+
+
+@media (max-width: 576px) {
+
+    .admin-page-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .admin-stat-card {
+        min-height: 110px;
+    }
+
+    .admin-action-card {
+        min-height: 200px;
+    }
+
+}

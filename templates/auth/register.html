@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block title %}Register | SolarGuard AI{% endblock %}
+
+{% block content %}
+
+<section class="auth-section">
+
+    <div class="auth-container">
+
+        <!-- Left Side -->
+
+        <div class="auth-left">
+
+            <div class="brand">
+
+                <h1>☀ SolarGuard AI</h1>
+
+                <p class="tagline">
+                    Smart Solar Panel Monitoring
+                </p>
+
+            </div>
+
+            <div class="auth-content">
+
+                <span class="hero-badge">
+                    AI Powered Maintenance
+                </span>
+
+                <h2>
+                    Detect.
+                    Predict.
+                    Protect.
+                </h2>
+
+                <p>
+                    Create your SolarGuard AI account and
+                    monitor your solar panels using Artificial
+                    Intelligence, real-time analytics and
+                    predictive maintenance.
+                </p>
+                <div class="auth-features">
+
+    <p><i class="bi bi-check-circle-fill"></i>AI Powered Defect Detection</p>
+
+    <p><i class="bi bi-check-circle-fill"></i>Real-time Solar Monitoring</p>
+
+    <p><i class="bi bi-check-circle-fill"></i>Predictive Maintenance Alerts</p>
+
+</div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="auth-right">
+
+            <div class="auth-card">
+
+                <h2>Create Account</h2>
+
+                <p class="text-muted mb-4">
+                    Register to continue
+                </p>
+                {% if error %}
+<div class="alert alert-danger">
+    {{ error }}
+</div>
+{% endif %}
+
+                <form method="POST">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Full Name
+                        </label>
+
+                        <input
+    type="text"
+    class="form-control"
+    name="full_name"
+    value="{{ form_data.full_name if form_data else '' }}"
+    placeholder="Enter your full name"
+    required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            class="form-control"
+                            name="email"
+                            value="{{ form_data.email if form_data else '' }}"
+                            placeholder="Enter your email"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="phone"
+                            value="{{ form_data.phone if form_data else '' }}"
+                            placeholder="Enter phone number"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="password"
+                            placeholder="Create password"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Confirm Password
+                        </label>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="confirm_password"
+                            placeholder="Confirm password"
+                            required>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Register As
+                        </label>
+
+                        <select
+    class="form-select"
+    name="role"
+    required>
+
+    <option value="">Select Role</option>
+
+    <option value="User"
+        {% if form_data and form_data.role == "User" %}selected{% endif %}>
+        User
+    </option>
+
+    <option value="Technician"
+        {% if form_data and form_data.role == "Technician" %}selected{% endif %}>
+        Technician
+    </option>
+
+</select>
+
+                    </div>
+
+                    <button
+    type="submit"
+    class="btn btn-success">
+
+    <i class="bi bi-person-plus-fill"></i>
+
+    Create Account
+
+</button>
+
+                </form>
+
+                <div class="text-center mt-4">
+
+                    Already have an account?
+
+                    <a href="{{ url_for('auth.login') }}">
+                        Login
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,281 @@
+{% extends "layouts/admin_dashboard_base.html" %}
+
+
+{% block title %}
+Admin Dashboard
+{% endblock %}
+
+
+{% block content %}
+
+<div class="admin-dashboard">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="admin-page-header">
+
+        <h2>
+
+            <i class="bi bi-speedometer2 me-2"></i>
+
+            Admin Dashboard
+
+        </h2>
+
+        <p>
+
+            Monitor users, solar panels, maintenance requests
+            and technicians.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
+
+    <div class="row g-4">
+
+
+        <!-- TOTAL USERS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-people-fill"></i>
+
+                </div>
+
+                <h6>
+                    Total Users
+                </h6>
+
+                <h2>
+                    {{ stats.users or 0 }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- SOLAR PANELS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-grid-3x3-gap-fill"></i>
+
+                </div>
+
+                <h6>
+                    Solar Panels
+                </h6>
+
+                <h2>
+                    {{ stats.panels or 0 }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- PENDING REQUESTS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-tools"></i>
+
+                </div>
+
+                <h6>
+                    Pending Requests
+                </h6>
+
+                <h2>
+                    {{ stats.pending_requests or 0 }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TECHNICIANS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-person-badge-fill"></i>
+
+                </div>
+
+                <h6>
+                    Technicians
+                </h6>
+
+                <h2>
+                    {{ stats.technicians or 0 }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         QUICK ACTIONS
+    ====================================================== -->
+
+    <div class="admin-quick-section">
+
+
+        <h3 class="admin-section-title">
+
+            <i class="bi bi-lightning-charge-fill me-2"></i>
+
+            Quick Actions
+
+        </h3>
+
+
+
+        <div class="row g-4">
+
+
+            <!-- =================================================
+                 MAINTENANCE
+            ================================================== -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <a
+                    href="{{ url_for('admin.maintenance_requests') }}"
+                    class="admin-action-card"
+                >
+
+                    <div class="admin-action-icon">
+
+                        <i class="bi bi-tools"></i>
+
+                    </div>
+
+
+                    <h4>
+                        Maintenance
+                    </h4>
+
+
+                    <p>
+                        Manage all maintenance requests
+                    </p>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TECHNICIANS
+            ================================================== -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <a
+                    href="{{ url_for('admin.technicians') }}"
+                    class="admin-action-card"
+                >
+
+                    <div class="admin-action-icon">
+
+                        <i class="bi bi-person-gear"></i>
+
+                    </div>
+
+
+                    <h4>
+                        Technicians
+                    </h4>
+
+
+                    <p>
+                        Assign and manage technicians
+                    </p>
+
+                </a>
+
+            </div>
+
+
+
+            
+
+
+
+            <!-- =================================================
+                 USERS
+            ================================================== -->
+
+            <div class="col-xl-3 col-md-6">
+
+                <a
+                    href="{{ url_for('admin.users') }}"
+                    class="admin-action-card"
+                >
+
+                    <div class="admin-action-icon">
+
+                        <i class="bi bi-people-fill"></i>
+
+                    </div>
+
+
+                    <h4>
+                        Users
+                    </h4>
+
+
+                    <p>
+                        Manage registered users
+                    </p>
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,603 @@
+{% extends "layouts/technician_dashboard_base.html" %}
+
+
+{% block title %}
+
+Maintenance Request #{{ assignment.request_id }}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =========================================================
+     PAGE HEADER
+========================================================= -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <a href="{{ url_for('technician.my_requests') }}"
+           class="text-decoration-none text-success">
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            Back to Maintenance Jobs
+
+        </a>
+
+        <h1 class="dashboard-title mt-2">
+
+            Maintenance Request #{{ assignment.request_id }}
+
+        </h1>
+
+        <p class="section-subtitle">
+
+            Review the maintenance request and panel information.
+
+        </p>
+
+    </div>
+
+
+    <div class="text-end">
+
+    {% if assignment.assignment_status == "Assigned" %}
+
+        <span class="badge bg-primary fs-6 mb-2 d-inline-block">
+
+            Assigned
+
+        </span>
+
+        <br>
+
+        <form method="POST"
+              action="{{ url_for(
+                  'technician.accept_request',
+                  request_id=assignment.request_id
+              ) }}"
+              class="d-inline">
+
+            <button type="submit"
+                    class="btn btn-success">
+
+                <i class="bi bi-check-circle me-1"></i>
+
+                Accept Job
+
+            </button>
+
+        </form>
+
+
+   {% elif assignment.assignment_status == "Accepted" %}
+
+    <span class="badge bg-info fs-6 mb-2 d-inline-block">
+
+        Accepted
+
+    </span>
+
+    <br>
+
+    <form method="POST"
+          action="{{ url_for(
+              'technician.start_request',
+              request_id=assignment.request_id
+          ) }}"
+          class="d-inline">
+
+        <button type="submit"
+                class="btn btn-success">
+
+            <i class="bi bi-play-circle me-1"></i>
+
+            Start Work
+
+        </button>
+
+    </form>
+
+
+    {% elif assignment.assignment_status == "In Progress" %}
+
+    <span class="badge bg-warning text-dark fs-6 mb-2 d-inline-block">
+
+        In Progress
+
+    </span>
+
+    <br>
+
+    <a href="{{ url_for(
+        'technician.complete_request',
+        request_id=assignment.request_id
+    ) }}"
+       class="btn btn-success">
+
+        <i class="bi bi-check-circle me-1"></i>
+
+        Complete Job
+
+    </a>
+
+
+    {% elif assignment.assignment_status == "Completed" %}
+
+        <span class="badge bg-success fs-6">
+
+            Completed
+
+        </span>
+
+    {% endif %}
+
+</div>
+
+</div>
+
+
+
+<!-- =========================================================
+     REQUEST INFORMATION
+========================================================= -->
+
+<div class="row g-4">
+
+
+    <!-- =====================================================
+         MAINTENANCE DETAILS
+    ====================================================== -->
+
+    <div class="col-lg-8">
+
+        <div class="dashboard-card h-100">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-tools text-success me-2"></i>
+
+                Maintenance Details
+
+            </h4>
+
+
+            <div class="row g-4">
+
+
+                <div class="col-md-6">
+
+                    <small class="text-muted">
+
+                        Issue Type
+
+                    </small>
+
+                    <h5 class="mt-1">
+
+                        {{ assignment.issue_type }}
+
+                    </h5>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <small class="text-muted">
+
+                        Priority
+
+                    </small>
+
+                    <div class="mt-1">
+
+                        {% if assignment.priority == "High" %}
+
+                            <span class="badge bg-danger">
+
+                                High
+
+                            </span>
+
+                        {% elif assignment.priority == "Medium" %}
+
+                            <span class="badge bg-warning text-dark">
+
+                                Medium
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-success">
+
+                                Low
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12">
+
+                    <small class="text-muted">
+
+                        Description
+
+                    </small>
+
+                    <div class="details-description mt-2">
+
+                        {% if assignment.description %}
+
+                            {{ assignment.description }}
+
+                        {% else %}
+
+                            No description provided.
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <small class="text-muted">
+
+                        Request Date
+
+                    </small>
+
+                    <p class="mt-1">
+
+                        {{ assignment.request_date }}
+
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <small class="text-muted">
+
+                        Assigned Date
+
+                    </small>
+
+                    <p class="mt-1">
+
+                        {{ assignment.assigned_date }}
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CUSTOMER INFORMATION
+    ====================================================== -->
+
+    <div class="col-lg-4">
+
+        <div class="dashboard-card h-100">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-person-fill text-success me-2"></i>
+
+                Customer
+
+            </h4>
+
+
+            <div class="mb-3">
+
+                <small class="text-muted">
+
+                    Name
+
+                </small>
+
+                <p class="fw-semibold mt-1">
+
+                    {{ assignment.customer_name }}
+
+                </p>
+
+            </div>
+
+
+            <div class="mb-3">
+
+                <small class="text-muted">
+
+                    Email
+
+                </small>
+
+                <p class="mt-1">
+
+                    {{ assignment.customer_email }}
+
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <small class="text-muted">
+
+                    Phone
+
+                </small>
+
+                <p class="mt-1">
+
+                    {{ assignment.customer_phone or "Not provided" }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SOLAR PANEL INFORMATION
+    ====================================================== -->
+
+    <div class="col-lg-8">
+
+        <div class="dashboard-card">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-sun-fill text-success me-2"></i>
+
+                Solar Panel Information
+
+            </h4>
+
+
+            <div class="row g-4">
+
+
+                <div class="col-md-6">
+
+                    <small class="text-muted">
+
+                        Panel Name
+
+                    </small>
+
+                    <p class="fw-semibold mt-1">
+
+                        {{ assignment.panel_name }}
+
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <small class="text-muted">
+
+                        Manufacturer
+
+                    </small>
+
+                    <p class="mt-1">
+
+                        {{ assignment.manufacturer or "Not provided" }}
+
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <small class="text-muted">
+
+                        Model Number
+
+                    </small>
+
+                    <p class="mt-1">
+
+                        {{ assignment.model_number or "Not provided" }}
+
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <small class="text-muted">
+
+                        Capacity
+
+                    </small>
+
+                    <p class="mt-1">
+
+                        {% if assignment.capacity %}
+
+                            {{ assignment.capacity }} kW
+
+                        {% else %}
+
+                            Not provided
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <small class="text-muted">
+
+                        Location
+
+                    </small>
+
+                    <p class="mt-1">
+
+                        {{ assignment.location or "Not provided" }}
+
+                    </p>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <small class="text-muted">
+
+                        Serial Number
+
+                    </small>
+
+                    <p class="mt-1">
+
+                        {{ assignment.serial_number or "Not provided" }}
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         REQUEST IMAGE
+    ====================================================== -->
+
+    <div class="col-lg-4">
+
+        <div class="dashboard-card">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-image text-success me-2"></i>
+
+                Issue Image
+
+            </h4>
+
+
+            {% if assignment.image_path %}
+
+                <img src="{{ url_for(
+                    'static',
+                    filename=assignment.image_path
+                ) }}"
+                     class="img-fluid rounded"
+                     alt="Maintenance issue">
+
+            {% else %}
+
+                <div class="text-center py-5">
+
+                    <i class="bi bi-image fs-1 text-muted"></i>
+
+                    <p class="text-muted mt-2">
+
+                        No image uploaded.
+
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+</div>
+<!-- =====================================================
+     SERVICE IMAGE
+====================================================== -->
+
+<div class="col-lg-4">
+
+    <div class="dashboard-card">
+
+        <h4 class="mb-4">
+
+            <i class="bi bi-camera-fill text-success me-2"></i>
+
+            Service Image
+
+        </h4>
+
+
+        {% if assignment.service_image %}
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename=assignment.service_image
+                ) }}"
+                class="img-fluid rounded"
+                alt="Completed maintenance work">
+
+        {% else %}
+
+            <div class="text-center py-5">
+
+                <i class="bi bi-camera fs-1 text-muted"></i>
+
+                <p class="text-muted mt-2 mb-0">
+
+                    No service image uploaded yet.
+
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}
+Create Maintenance Request
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="mb-4">
+        Create Maintenance Request
+    </h2>
+
+    <form
+    method="POST"
+    enctype="multipart/form-data">
+
+<div class="mb-3">
+
+    <label class="form-label">
+
+        Solar Panel
+
+    </label>
+
+    <select
+        class="form-select"
+        name="panel_id"
+        required>
+
+        <option value="">
+            Select Panel
+        </option>
+
+        {% for panel in panels %}
+
+        <option value="{{ panel.panel_id }}">
+
+            {{ panel.panel_name }}
+
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+</div>
+<div class="mb-3">
+
+<label class="form-label">
+
+Issue Type
+
+</label>
+
+<select
+class="form-select"
+name="issue_type"
+required>
+
+<option value="">Select Issue</option>
+
+<option>Dust Accumulation</option>
+
+<option>Physical Damage</option>
+
+<option>Loose Wiring</option>
+
+<option>Hot Spot</option>
+
+<option>Inverter Issue</option>
+
+<option>Performance Drop</option>
+
+<option>Other</option>
+
+</select>
+
+</div>
+<div class="mb-3">
+
+<label class="form-label">
+
+Priority
+
+</label>
+
+<select
+class="form-select"
+name="priority">
+
+<option>Low</option>
+
+<option selected>Medium</option>
+
+<option>High</option>
+
+</select>
+
+</div>
+<div class="mb-3">
+
+<label class="form-label">
+
+Description
+
+</label>
+
+<textarea
+class="form-control"
+name="description"
+rows="5"
+required></textarea>
+
+</div>
+<div class="mb-3">
+
+<label class="form-label">
+
+Upload Image
+
+</label>
+
+<input
+type="file"
+class="form-control"
+name="image">
+
+</div>
+<button
+type="submit"
+class="btn btn-success">
+
+Submit Request
+
+</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

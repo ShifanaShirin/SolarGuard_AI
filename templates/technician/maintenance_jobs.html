@@ -1,0 +1,299 @@
+{% extends "layouts/technician_dashboard_base.html" %}
+
+
+{% block title %}
+
+Maintenance Jobs | SolarGuard AI
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =========================================================
+     PAGE HEADER
+========================================================= -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h1 class="dashboard-title">
+
+            <i class="bi bi-tools text-success me-2"></i>
+
+            My Maintenance Jobs
+
+        </h1>
+
+        <p class="section-subtitle">
+
+            View and manage maintenance requests assigned to you.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MAINTENANCE JOBS CARD
+========================================================= -->
+
+<div class="dashboard-card">
+
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h4>
+
+                <i class="bi bi-clipboard-check text-success me-2"></i>
+
+                Assigned Maintenance Requests
+
+            </h4>
+
+            <p class="section-subtitle mb-0">
+
+                Jobs currently assigned to you
+
+            </p>
+
+        </div>
+
+
+        <span class="badge bg-success fs-6">
+
+            {{ assignments|length }} Jobs
+
+        </span>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         TABLE
+    ====================================================== -->
+
+    <div class="table-responsive">
+
+        <table class="table dashboard-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Request</th>
+
+                    <th>Panel</th>
+
+                    <th>Issue</th>
+
+                    <th>Priority</th>
+
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                {% if assignments %}
+
+
+                    {% for assignment in assignments %}
+
+
+                    <tr>
+
+
+                        <!-- REQUEST ID -->
+
+                        <td>
+
+                            <strong>
+
+                                #{{ assignment.request_id }}
+
+                            </strong>
+
+                        </td>
+
+
+                        <!-- PANEL -->
+
+                        <td>
+
+                            {{ assignment.panel_name }}
+
+                        </td>
+
+
+                        <!-- ISSUE -->
+
+                        <td>
+
+                            {{ assignment.issue_type }}
+
+                        </td>
+
+
+                        <!-- PRIORITY -->
+
+                        <td>
+
+                            {% if assignment.priority == "High" %}
+
+                                <span class="badge bg-danger">
+
+                                    High
+
+                                </span>
+
+                            {% elif assignment.priority == "Medium" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Medium
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-success">
+
+                                    Low
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if assignment.assignment_status == "Assigned" %}
+
+                                <span class="badge bg-primary">
+
+                                    Assigned
+
+                                </span>
+
+                            {% elif assignment.assignment_status == "Accepted" %}
+
+                                <span class="badge bg-info">
+
+                                    Accepted
+
+                                </span>
+
+                            {% elif assignment.assignment_status == "In Progress" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    In Progress
+
+                                </span>
+
+                            {% elif assignment.assignment_status == "Completed" %}
+
+                                <span class="badge bg-success">
+
+                                    Completed
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary">
+
+                                    {{ assignment.assignment_status }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- ACTION -->
+
+                        <td>
+
+                            <a href="{{ url_for(
+        'technician.request_details',
+        request_id=assignment.request_id
+    ) }}"
+   class="btn btn-sm btn-success">
+
+    <i class="bi bi-eye me-1"></i>
+
+    View
+
+</a>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <tr>
+
+                        <td colspan="6"
+                            class="text-center py-5">
+
+                            <i class="bi bi-clipboard-x fs-1 d-block mb-3"></i>
+
+                            <h5>
+
+                                No Maintenance Jobs
+
+                            </h5>
+
+                            <p class="text-muted">
+
+                                You currently have no maintenance requests assigned to you.
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+
+                {% endif %}
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

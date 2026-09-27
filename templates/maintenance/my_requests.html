@@ -1,0 +1,352 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}My Maintenance Requests{% endblock %}
+
+{% block content %}
+
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h2 class="fw-bold">
+
+Maintenance Requests
+
+</h2>
+
+<p class="text-muted">
+
+Track all maintenance requests for your solar panels.
+
+</p>
+
+</div>
+
+<a
+href="{{ url_for('maintenance.create_request') }}"
+class="btn btn-success">
+
+<i class="bi bi-plus-circle"></i>
+
+Create Request
+
+</a>
+
+</div>
+{% if requests %}
+
+<div class="row g-3 mb-4">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 text-center">
+            <div class="card-body">
+                <h6 class="text-muted">Total Requests</h6>
+                <h2>{{ stats.total or 0 }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 text-center">
+            <div class="card-body">
+                <h6 class="text-warning">Pending</h6>
+                <h2>{{ stats.pending or 0 }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 text-center">
+            <div class="card-body">
+                <h6 class="text-success">Completed</h6>
+                <h2>{{ stats.completed or 0 }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0 text-center">
+            <div class="card-body">
+                <h6 class="text-danger">Cancelled</h6>
+                <h2>{{ stats.cancelled or 0 }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <!-- Search -->
+
+            <div class="col-md-8 mb-3">
+
+                <label class="form-label fw-semibold">
+
+                    <i class="bi bi-search"></i>
+
+                    Search
+
+                </label>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="form-control"
+                    placeholder="Search by panel or issue...">
+
+            </div>
+
+            <!-- Status Filter -->
+
+            <div class="col-md-4 mb-3">
+
+                <label class="form-label fw-semibold">
+
+                    <i class="bi bi-funnel"></i>
+
+                    Status
+
+                </label>
+
+                <select
+                    id="statusFilter"
+                    class="form-select">
+
+                    <option value="">All</option>
+
+                    <option value="Pending">Pending</option>
+
+                    <option value="Approved">Approved</option>
+
+                    <option value="Assigned">Assigned</option>
+
+                    <option value="In Progress">In Progress</option>
+
+                    <option value="Completed">Completed</option>
+
+                    <option value="Rejected">Rejected</option>
+
+                    <option value="Cancelled">Cancelled</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<table class="table table-hover align-middle" id="maintenanceTable" >
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>Panel</th>
+
+            <th>Issue</th>
+
+            <th>Priority</th>
+
+            <th>Status</th>
+
+            <th>Date</th>
+
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for request in requests %}
+
+    <tr class="maintenance-row">
+
+        <td>{{ request.panel_name }}</td>
+
+        <td>{{ request.issue_type }}</td>
+
+        <td>
+
+            {% if request.priority=="High" %}
+
+<span class="badge rounded-pill bg-danger">
+    🔴 High
+</span>
+
+{% elif request.priority=="Medium" %}
+
+<span class="badge rounded-pill bg-warning text-dark">
+    🟡 Medium
+</span>
+
+{% else %}
+
+<span class="badge rounded-pill bg-success">
+    🟢 Low
+</span>
+
+{% endif %}
+
+        </td>
+
+        <td>
+
+            {% if request.request_status=="Pending" %}
+
+                <span class="badge bg-warning text-dark">
+
+                    Pending
+
+                </span>
+
+            {% elif request.request_status=="Approved" %}
+
+                <span class="badge bg-primary">
+
+                    Approved
+
+                </span>
+
+            {% elif request.request_status=="Assigned" %}
+
+                <span class="badge bg-info text-dark">
+
+                    Assigned
+
+                </span>
+
+            {% elif request.request_status=="In Progress" %}
+
+                <span class="badge bg-secondary">
+
+                    In Progress
+
+                </span>
+
+            {% elif request.request_status=="Completed" %}
+
+                <span class="badge bg-success">
+
+                    Completed
+
+                </span>
+
+            {% elif request.request_status=="Rejected" %}
+
+                <span class="badge bg-danger">
+
+                    Rejected
+
+                </span>
+            {% elif request.request_status=="Cancelled" %}
+
+<span class="badge bg-dark">
+
+Cancelled
+
+</span>
+
+            {% endif %}
+
+            
+
+        </td>
+
+        <td>
+
+            {{ request.request_date.strftime('%d-%b-%Y') }}
+
+        </td>
+
+        <td>
+
+    <div class="btn-group" role="group">
+
+        <!-- View Request -->
+
+        <a href="{{ url_for(
+            'maintenance.view_request',
+            request_id=request.request_id
+        ) }}"
+        class="btn btn-sm btn-outline-success"
+        title="View Request">
+
+            <i class="bi bi-eye"></i>
+
+        </a>
+
+
+        <!-- View Report -->
+
+        {% if request.request_status == "Completed" %}
+
+        <a href="{{ url_for(
+            'maintenance.view_report',
+            request_id=request.request_id
+        ) }}"
+        class="btn btn-sm btn-outline-info"
+        title="View Maintenance Report">
+
+            <i class="bi bi-file-earmark-text"></i>
+
+        </a>
+
+        {% endif %}
+
+    </div>
+
+</td>
+
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% else %}
+
+<div class="alert alert-info">
+
+    No maintenance requests found.
+
+</div>
+
+{% endif %}
+
+<script>
+const searchInput = document.getElementById("searchInput");
+const statusFilter = document.getElementById("statusFilter");
+
+function filterTable() {
+    const search = searchInput.value.toLowerCase();
+    const status = statusFilter.value.toLowerCase();
+
+    document.querySelectorAll(".maintenance-row").forEach(function(row) {
+
+        const text = row.innerText.toLowerCase();
+
+        const matchesSearch = text.includes(search);
+        const matchesStatus = status === "" || text.includes(status);
+
+        row.style.display = (matchesSearch && matchesStatus) ? "" : "none";
+    });
+}
+
+searchInput.addEventListener("keyup", filterTable);
+statusFilter.addEventListener("change", filterTable);
+</script>
+{% endblock %}

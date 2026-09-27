@@ -1,0 +1,352 @@
+{% extends "layouts/admin_dashboard_base.html" %}
+
+{% block title %}
+Maintenance Report
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+
+    <a href="{{ url_for(
+        'admin.maintenance_request_details',
+        request_id=report.request_id
+    ) }}"
+    class="report-back-link">
+
+        <i class="bi bi-arrow-left me-1"></i>
+
+        Back to Request Details
+
+    </a>
+
+    <h2 class="report-title mt-3 mb-1">
+
+        Maintenance Completion Report
+
+    </h2>
+
+    <p class="report-subtitle">
+
+        Request #{{ report.request_id }}
+
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     REPORT HEADER
+====================================================== -->
+
+<div class="dashboard-card mb-4">
+
+    <div class="d-flex justify-content-between align-items-start">
+
+        <div>
+
+            <h4 class="mb-1">
+
+                {{ report.panel_name }}
+
+            </h4>
+
+            <p class="report-muted mb-0">
+
+                Maintenance Request #{{ report.request_id }}
+
+            </p>
+
+        </div>
+
+        <span class="badge bg-success fs-6">
+
+            {{ report.report_status }}
+
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="row g-4">
+
+
+    <!-- =================================================
+         JOB DETAILS
+    ================================================== -->
+
+    <div class="col-lg-6">
+
+        <div class="dashboard-card h-100">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-tools text-success me-2"></i>
+
+                Job Details
+
+            </h4>
+
+
+            <div class="report-item">
+
+                <small>Issue Type</small>
+
+                <div>
+                    {{ report.issue_type }}
+                </div>
+
+            </div>
+
+
+            <div class="report-item">
+
+                <small>Priority</small>
+
+                <div>
+
+                    {% if report.priority == "High" %}
+
+                        <span class="badge bg-danger">
+                            High
+                        </span>
+
+                    {% elif report.priority == "Medium" %}
+
+                        <span class="badge bg-warning text-dark">
+                            Medium
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-success">
+                            Low
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="report-item">
+
+                <small>Panel</small>
+
+                <div>
+                    {{ report.panel_name }}
+                </div>
+
+            </div>
+
+
+            <div class="report-item">
+
+                <small>Manufacturer</small>
+
+                <div>
+                    {{ report.manufacturer or "Not available" }}
+                </div>
+
+            </div>
+
+
+            <div class="report-item">
+
+                <small>Model Number</small>
+
+                <div>
+                    {{ report.model_number or "Not available" }}
+                </div>
+
+            </div>
+
+
+            <div class="report-item">
+
+                <small>Location</small>
+
+                <div>
+                    {{ report.location or "Not available" }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         CUSTOMER + TECHNICIAN
+    ================================================== -->
+
+    <div class="col-lg-6">
+
+        <div class="dashboard-card h-100">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-people-fill text-success me-2"></i>
+
+                People Involved
+
+            </h4>
+
+
+            <div class="report-item">
+
+                <small>Customer</small>
+
+                <div>
+                    {{ report.customer_name }}
+                </div>
+
+            </div>
+
+
+            <div class="report-item">
+
+                <small>Customer Email</small>
+
+                <div>
+                    {{ report.customer_email }}
+                </div>
+
+            </div>
+
+
+            <div class="report-item">
+
+                <small>Technician</small>
+
+                <div>
+                    {{ report.technician_name or "Not available" }}
+                </div>
+
+            </div>
+
+
+            <div class="report-item">
+
+                <small>Completion Date</small>
+
+                <div>
+                    {{ report.completion_date or "Not available" }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         COMPLETION DETAILS
+    ================================================== -->
+
+    <div class="col-lg-12">
+
+        <div class="dashboard-card">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+
+                Completion Details
+
+            </h4>
+
+
+            <div class="report-item">
+
+                <h6>Inspection Notes</h6>
+
+                <p>
+
+                    {{ report.inspection_notes or
+                       "No inspection notes provided." }}
+
+                </p>
+
+            </div>
+
+
+            <div class="report-item">
+
+                <h6>Repair Details</h6>
+
+                <p>
+
+                    {{ report.repair_details or
+                       "No repair details provided." }}
+
+                </p>
+
+            </div>
+
+
+            <div class="report-item">
+
+                <h6>Parts Replaced</h6>
+
+                <p>
+
+                    {{ report.parts_replaced or
+                       "No parts replaced." }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SERVICE IMAGE
+    ================================================== -->
+
+    {% if report.service_image %}
+
+    <div class="col-lg-12">
+
+        <div class="dashboard-card">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-camera-fill text-success me-2"></i>
+
+                Service Image
+
+            </h4>
+
+
+            <div class="text-center">
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename=report.service_image
+                    ) }}"
+                    alt="Service completion image"
+                    class="img-fluid rounded report-service-image"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

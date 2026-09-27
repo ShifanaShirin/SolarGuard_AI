@@ -1,0 +1,194 @@
+{% extends "layouts/technician_dashboard_base.html" %}
+
+
+{% block title %}
+
+Complete Maintenance Job
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<div class="mb-4">
+
+    <a href="{{ url_for(
+        'technician.request_details',
+        request_id=assignment.request_id
+    ) }}"
+       class="text-decoration-none text-success">
+
+        <i class="bi bi-arrow-left me-1"></i>
+
+        Back to Request
+
+    </a>
+
+    <h1 class="dashboard-title mt-2">
+
+        Complete Maintenance Job
+
+    </h1>
+
+    <p class="section-subtitle">
+
+        Submit the inspection and repair details for
+        Request #{{ assignment.request_id }}.
+
+    </p>
+
+</div>
+
+
+
+<!-- =========================================================
+     FORM
+========================================================= -->
+
+<div class="dashboard-card">
+
+<form method="POST"
+      enctype="multipart/form-data">
+
+        <!-- =================================================
+             INSPECTION NOTES
+        ================================================== -->
+
+        <div class="mb-4">
+
+            <label class="form-label fw-semibold">
+
+                Inspection Notes
+                <span class="text-danger">*</span>
+
+            </label>
+
+            <textarea
+                name="inspection_notes"
+                class="form-control"
+                rows="5"
+                placeholder="Describe the condition of the solar panel after inspection..."
+                required></textarea>
+
+        </div>
+
+
+
+        <!-- =================================================
+             REPAIR DETAILS
+        ================================================== -->
+
+        <div class="mb-4">
+
+            <label class="form-label fw-semibold">
+
+                Repair Details
+
+            </label>
+
+            <textarea
+                name="repair_details"
+                class="form-control"
+                rows="5"
+                placeholder="Describe the repair or maintenance work performed..."></textarea>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PARTS REPLACED
+        ================================================== -->
+
+        <div class="mb-4">
+
+            <label class="form-label fw-semibold">
+
+                Parts Replaced
+
+            </label>
+
+            <input
+                type="text"
+                name="parts_replaced"
+                class="form-control"
+                placeholder="Example: MC4 connector, cable, fuse">
+
+        </div>
+
+
+
+        <!-- =================================================
+             SERVICE IMAGE
+        ================================================== -->
+
+
+            <div class="mb-4">
+
+    <label class="form-label fw-semibold">
+
+        Service Image
+
+    </label>
+
+    <input
+        type="file"
+        name="service_image"
+        class="form-control"
+        accept="image/*">
+
+    <small class="text-muted">
+
+        Upload an image showing the completed maintenance work.
+
+    </small>
+
+</div>
+
+            
+
+        </div>
+
+
+
+        <!-- =================================================
+             ACTIONS
+        ================================================== -->
+
+        <div class="d-flex gap-2">
+
+            <a href="{{ url_for(
+                'technician.request_details',
+                request_id=assignment.request_id
+            ) }}"
+               class="btn btn-secondary">
+
+                Cancel
+
+            </a>
+
+
+            <button
+                type="submit"
+                class="btn btn-success">
+
+                <i class="bi bi-check-circle me-1"></i>
+
+                Submit Maintenance Report
+
+            </button>
+
+        </div>
+
+
+    </form>
+
+</div>
+
+
+{% endblock %}

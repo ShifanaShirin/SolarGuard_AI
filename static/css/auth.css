@@ -1,0 +1,368 @@
+/* ===========================================
+   SOLARGUARD AI
+   AUTH PAGE
+=========================================== */
+
+.auth-section{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:80px 7%;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* Background Glow */
+
+.auth-section::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:450px;
+
+    height:450px;
+
+    background:#16a34a33;
+
+    border-radius:50%;
+
+    filter:blur(170px);
+
+    top:-170px;
+
+    right:-120px;
+
+}
+
+.auth-section::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+
+    height:500px;
+
+    background:#3b82f633;
+
+    border-radius:50%;
+
+    filter:blur(190px);
+
+    left:-180px;
+
+    bottom:-180px;
+
+}
+
+.auth-container{
+
+    width:100%;
+
+    max-width:1300px;
+
+    display:grid;
+
+    grid-template-columns:1fr 520px;
+
+    gap:70px;
+
+    align-items:center;
+
+    position:relative;
+
+    z-index:2;
+
+}
+
+/* ===========================================
+   LEFT SIDE
+=========================================== */
+
+.auth-left{
+
+    animation:fadeLeft .9s ease;
+
+}
+
+.brand h1{
+
+    font-family:'Outfit',sans-serif;
+
+    font-size:64px;
+
+    font-weight:800;
+
+    color:#fff;
+
+    margin-bottom:10px;
+
+}
+
+.tagline{
+
+    color:#d5d8df;
+
+    font-size:30px;
+
+    margin-bottom:35px;
+
+}
+
+.auth-content{
+
+    max-width:620px;
+
+}
+
+.auth-content h2{
+
+    font-family:'Outfit',sans-serif;
+
+    font-size:60px;
+
+    font-weight:800;
+
+    color:#fff;
+
+    margin:25px 0;
+
+    line-height:1.15;
+
+}
+
+.auth-content p{
+
+    color:#a8b3cf;
+
+    font-size:22px;
+
+    line-height:1.8;
+
+}
+
+.hero-badge{
+
+    display:inline-block;
+
+    background:#16a34a;
+
+    color:white;
+
+    padding:12px 22px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    font-size:17px;
+
+    margin-bottom:25px;
+
+}
+
+/* Features */
+
+.auth-features{
+
+    margin-top:45px;
+
+}
+
+.auth-features p{
+
+    margin-bottom:18px;
+
+    color:#e5e7eb;
+
+    font-size:18px;
+
+}
+
+.auth-features i{
+
+    color:#16a34a;
+
+    margin-right:12px;
+
+}
+
+/* ===========================================
+   RIGHT SIDE
+=========================================== */
+
+.auth-right{
+
+    display:flex;
+
+    justify-content:center;
+
+    animation:fadeRight .9s ease;
+
+}
+
+.auth-card{
+
+    width:100%;
+
+    background:rgba(20,28,47,.78);
+
+    backdrop-filter:blur(22px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:28px;
+
+    padding:45px;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.45),
+        0 0 35px rgba(34,197,94,.08);
+
+}
+
+.auth-card h2{
+
+    font-family:'Outfit',sans-serif;
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    margin-bottom:10px;
+
+}
+
+.auth-card .text-muted{
+
+    color:#9CA3AF !important;
+
+    margin-bottom:30px !important;
+
+}
+
+/* Labels */
+
+.form-label{
+
+    color:#fff;
+
+    font-weight:500;
+
+    margin-bottom:8px;
+
+}
+
+/* Inputs */
+
+.form-control,
+.form-select{
+
+    background:#0F172A;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:white;
+
+    height:55px;
+
+    border-radius:14px;
+
+    padding:0 18px;
+
+    font-size:16px;
+
+}
+
+.form-control::placeholder{
+
+    color:#94A3B8;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    background:#0F172A;
+
+    color:white;
+
+    border-color:#16a34a;
+
+    box-shadow:0 0 18px rgba(34,197,94,.25);
+
+}
+
+.form-select{
+
+    color:#CBD5E1;
+
+}
+
+/* Button */
+
+.auth-card .btn-success{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#16a34a;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.auth-card .btn-success:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 18px 35px rgba(34,197,94,.35);
+
+}
+
+/* Login Link */
+
+.auth-card a{
+
+    color:#16a34a;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+.auth-card a:hover{
+
+    color:#22c55e;
+
+}
+
+.text-center{
+
+    color:#CBD5E1;
+
+}

@@ -1,0 +1,314 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}AI Analysis | SolarGuard AI{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                AI Analysis
+            </h2>
+
+            <p class="text-muted mb-0">
+                View your previous solar panel AI detections and analysis results.
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('ai.detection') }}"
+           class="btn btn-success">
+
+            🤖 New AI Detection
+
+        </a>
+
+    </div>
+
+
+    <!-- Detection History -->
+    <div class="card border-0 shadow-lg">
+
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+
+                    <h5 class="fw-bold mb-1">
+                        Detection History
+                    </h5>
+
+                    <p class="text-muted small mb-0">
+                        Previous AI analysis performed on your solar panels.
+                    </p>
+
+                </div>
+
+                <span class="badge bg-success px-3 py-2">
+
+                    {{ detections|length }} Analyses
+
+                </span>
+
+            </div>
+
+
+            {% if detections %}
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Date</th>
+
+                            <th>Solar Panel</th>
+
+                            <th>Detected Condition</th>
+
+                            <th>Confidence</th>
+
+                            <th>Efficiency</th>
+
+                            <th>Maintenance</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for detection in detections %}
+
+                        <tr>
+
+                            <!-- Date -->
+
+                            <td>
+
+                                <div class="fw-semibold">
+
+                                    {{ detection.analyzed_at.strftime('%d %b %Y') }}
+
+                                </div>
+
+                                <small class="text-muted">
+
+                                    {{ detection.analyzed_at.strftime('%I:%M %p') }}
+
+                                </small>
+
+                            </td>
+
+
+                            <!-- Panel -->
+
+                            <td>
+
+                                <div class="fw-semibold">
+
+                                    {{ detection.panel_name }}
+
+                                </div>
+
+                                {% if detection.location %}
+
+                                <small class="text-muted">
+
+                                    {{ detection.location }}
+
+                                </small>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Condition -->
+
+                            <td>
+
+                                {% if detection.detected_defect == "Clean" %}
+
+                                    <span class="badge bg-success px-3 py-2">
+
+                                        Clean
+
+                                    </span>
+
+                                {% elif detection.detected_defect == "Dusty" %}
+
+                                    <span class="badge bg-warning text-dark px-3 py-2">
+
+                                        Dusty
+
+                                    </span>
+
+                                {% elif detection.detected_defect == "Bird-Drop" %}
+
+                                    <span class="badge bg-info text-dark px-3 py-2">
+
+                                        Bird-Drop
+
+                                    </span>
+
+                                {% elif detection.detected_defect == "Electrical-Damage" %}
+
+                                    <span class="badge bg-danger px-3 py-2">
+
+                                        Electrical Damage
+
+                                    </span>
+
+                                {% elif detection.detected_defect == "Physical-Damage" %}
+
+                                    <span class="badge bg-danger px-3 py-2">
+
+                                        Physical Damage
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary px-3 py-2">
+
+                                        {{ detection.detected_defect }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Confidence -->
+
+                            <td>
+
+                                <strong>
+
+                                    {{ detection.confidence_score }}%
+
+                                </strong>
+
+                            </td>
+
+
+                            <!-- Efficiency -->
+
+                            <td>
+
+                                <strong class="text-success">
+
+                                    {{ detection.estimated_efficiency }}%
+
+                                </strong>
+
+                            </td>
+
+
+                            <!-- Maintenance -->
+
+                            <td>
+
+                                {% if detection.maintenance_required == "Yes" %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Required
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-success">
+
+                                        Not Required
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- Action -->
+
+                            <td>
+
+                                <a href="{{ url_for(
+                                    'ai.analysis_detail',
+                                    detection_id=detection.detection_id
+                                ) }}"
+                                class="btn btn-sm btn-outline-success">
+
+                                    View Details
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <!-- Empty State -->
+
+            <div class="text-center py-5">
+
+                <div style="font-size:60px;">
+
+                    🤖
+
+                </div>
+
+                <h5 class="fw-bold mt-3">
+
+                    No AI Analysis Yet
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Upload a solar panel image to perform your first AI analysis.
+
+                </p>
+
+                <a href="{{ url_for('ai.detection') }}"
+                   class="btn btn-success">
+
+                    Start AI Detection
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

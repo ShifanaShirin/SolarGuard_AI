@@ -1,0 +1,94 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}
+Panel Details
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-card">
+
+    <h2 class="mb-4">
+
+        Solar Panel Details
+
+    </h2>
+
+    <table class="table dashboard-table">
+
+        <tr>
+
+            <th>Panel Name</th>
+
+            <td>{{ panel.panel_name }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Manufacturer</th>
+
+            <td>{{ panel.manufacturer }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Model Number</th>
+
+            <td>{{ panel.model_number }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Capacity</th>
+
+            <td>{{ panel.capacity }} kW</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Installation Date</th>
+
+            <td>{{ panel.installation_date }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Location</th>
+
+            <td>{{ panel.location }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Serial Number</th>
+
+            <td>{{ panel.serial_number }}</td>
+
+        </tr>
+
+        <tr>
+
+            <th>Panel Age</th>
+
+            <td>{{ panel.panel_age }} Years</td>
+
+        </tr>
+
+    </table>
+
+    <a href="{{ url_for('panel.my_panels') }}"
+       class="btn btn-success">
+
+        Back
+
+    </a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,425 @@
+{% extends "layouts/admin_dashboard_base.html" %}
+
+
+{% block title %}
+User Details
+{% endblock %}
+
+
+{% block content %}
+
+<div class="admin-dashboard">
+
+
+    <!-- BACK -->
+
+    <div class="mb-4">
+
+        <a
+            href="{{ url_for('admin.users') }}"
+            class="report-back-link"
+        >
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            Back to Users
+
+        </a>
+
+    </div>
+
+
+
+    <!-- USER HEADER -->
+
+    <div class="dashboard-card mb-4">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <div class="admin-action-icon mb-0">
+
+                <i class="bi bi-person-fill"></i>
+
+            </div>
+
+
+            <div>
+
+                <h3 class="text-white mb-1">
+
+                    {{ user.full_name }}
+
+                </h3>
+
+                <p class="report-muted mb-0">
+
+                    User ID #{{ user.user_id }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- USER INFORMATION -->
+
+    <div class="row g-4 mb-4">
+
+
+        <div class="col-lg-6">
+
+            <div class="dashboard-card h-100">
+
+                <h4 class="mb-4">
+
+                    <i class="bi bi-person-vcard text-success me-2"></i>
+
+                    User Information
+
+                </h4>
+
+
+                <div class="report-item">
+
+                    <small>Full Name</small>
+
+                    <div>
+                        {{ user.full_name }}
+                    </div>
+
+                </div>
+
+
+                <div class="report-item">
+
+                    <small>Email</small>
+
+                    <div>
+                        {{ user.email }}
+                    </div>
+
+                </div>
+
+
+                <div class="report-item">
+
+                    <small>Phone</small>
+
+                    <div>
+                        {{ user.phone or "Not provided" }}
+                    </div>
+
+                </div>
+
+
+                <div class="report-item">
+
+                    <small>Role</small>
+
+                    <div>
+                        {{ user.role }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ACCOUNT SUMMARY -->
+
+        <div class="col-lg-6">
+
+            <div class="dashboard-card h-100">
+
+                <h4 class="mb-4">
+
+                    <i class="bi bi-bar-chart-fill text-success me-2"></i>
+
+                    Account Summary
+
+                </h4>
+
+
+                <div class="row g-3">
+
+
+                    <div class="col-6">
+
+                        <div class="admin-stat-card">
+
+                            <h6>
+                                Solar Panels
+                            </h6>
+
+                            <h2>
+                                {{ panels|length }}
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6">
+
+                        <div class="admin-stat-card">
+
+                            <h6>
+                                Maintenance
+                            </h6>
+
+                            <h2>
+                                {{ maintenance_requests|length }}
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- SOLAR PANELS -->
+
+    <div class="dashboard-card mb-4">
+
+        <h4 class="mb-4">
+
+            <i class="bi bi-grid-3x3-gap-fill text-success me-2"></i>
+
+            Registered Solar Panels
+
+        </h4>
+
+
+        <div class="table-responsive">
+
+            <table class="table dashboard-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Panel</th>
+
+                        <th>Manufacturer</th>
+
+                        <th>Model</th>
+
+                        <th>Capacity</th>
+
+                        <th>Location</th>
+
+                        <th>Installation</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if panels %}
+
+                        {% for panel in panels %}
+
+                        <tr>
+
+                            <td>
+                                {{ panel.panel_name }}
+                            </td>
+
+                            <td>
+                                {{ panel.manufacturer or "-" }}
+                            </td>
+
+                            <td>
+                                {{ panel.model_number or "-" }}
+                            </td>
+
+                            <td>
+                                {{ panel.capacity or "-" }}
+                            </td>
+
+                            <td>
+                                {{ panel.location or "-" }}
+                            </td>
+
+                            <td>
+                                {{ panel.installation_date or "-" }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="6"
+                                class="text-center py-4">
+
+                                No solar panels registered.
+
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- MAINTENANCE REQUESTS -->
+
+    <div class="dashboard-card">
+
+        <h4 class="mb-4">
+
+            <i class="bi bi-tools text-success me-2"></i>
+
+            Maintenance Requests
+
+        </h4>
+
+
+        <div class="table-responsive">
+
+            <table class="table dashboard-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Panel</th>
+
+                        <th>Issue</th>
+
+                        <th>Priority</th>
+
+                        <th>Status</th>
+
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if maintenance_requests %}
+
+                        {% for item in maintenance_requests %}
+
+                        <tr>
+
+                            <td>
+                                #{{ item.request_id }}
+                            </td>
+
+                            <td>
+                                {{ item.panel_name }}
+                            </td>
+
+                            <td>
+                                {{ item.issue_type }}
+                            </td>
+
+                            <td>
+
+                                {% if item.priority == "High" %}
+
+                                    <span class="badge bg-danger">
+                                        High
+                                    </span>
+
+                                {% elif item.priority == "Medium" %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        Medium
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-success">
+                                        Low
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-secondary">
+
+                                    {{ item.request_status }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                {{ item.request_date.strftime("%d %b %Y")
+                                   if item.request_date else "-" }}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="6"
+                                class="text-center py-4">
+
+                                No maintenance requests.
+
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

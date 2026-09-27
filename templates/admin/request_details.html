@@ -1,0 +1,588 @@
+{% extends "layouts/admin_dashboard_base.html" %}
+
+{% block title %}
+Maintenance Request Details
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+    <div>
+
+        <h2 class="fw-bold text-white mb-1">
+
+            <i class="bi bi-tools text-success me-2"></i>
+
+            Maintenance Request #{{ maintenance_request.request_id }}
+
+        </h2>
+
+        <p class="text-light opacity-75 mb-0">
+
+            Review the maintenance request and panel information.
+
+        </p>
+
+    </div>
+
+    <a href="{{ url_for('admin.maintenance_requests') }}"
+       class="btn btn-outline-light">
+
+        <i class="bi bi-arrow-left me-1"></i>
+
+        Back to Requests
+
+    </a>
+
+</div>
+
+
+<!-- ================= REQUEST STATUS ================= -->
+
+<div class="dashboard-card mb-4">
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+        <div>
+
+            <h4 class="text-white mb-1">
+
+                Request Status
+
+            </h4>
+
+            <p class="section-subtitle mb-0">
+
+                Current maintenance request status
+
+            </p>
+
+        </div>
+
+        <div>
+
+            {% if maintenance_request.request_status == "Pending" %}
+
+                <span class="badge bg-warning text-dark fs-6">
+
+                    Pending
+
+                </span>
+
+            {% elif maintenance_request.request_status == "Approved" %}
+
+                <span class="badge bg-info fs-6">
+
+                    Approved
+
+                </span>
+
+            {% elif maintenance_request.request_status == "Assigned" %}
+
+                <span class="badge bg-primary fs-6">
+
+                    Assigned
+
+                </span>
+
+            {% elif maintenance_request.request_status == "In Progress" %}
+
+                <span class="badge bg-primary fs-6">
+
+                    In Progress
+
+                </span>
+
+            {% elif maintenance_request.request_status == "Completed" %}
+
+                <span class="badge bg-success fs-6">
+
+                    Completed
+
+                </span>
+
+            {% elif maintenance_request.request_status == "Rejected" %}
+
+                <span class="badge bg-danger fs-6">
+
+                    Rejected
+
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="row g-4">
+
+
+    <!-- ================= USER INFORMATION ================= -->
+
+    <div class="col-lg-6">
+
+        <div class="dashboard-card h-100">
+
+            <h4 class="text-white mb-4">
+
+                <i class="bi bi-person-fill text-success me-2"></i>
+
+                User Information
+
+            </h4>
+
+            <div class="detail-item">
+
+                <span>Name</span>
+
+                <strong>
+
+                    {{ maintenance_request.user_name }}
+
+                </strong>
+
+            </div>
+
+            <div class="detail-item">
+
+                <span>Email</span>
+
+                <strong>
+
+                    {{ maintenance_request.user_email }}
+
+                </strong>
+
+            </div>
+
+            <div class="detail-item">
+
+                <span>Phone</span>
+
+                <strong>
+
+                    {{ maintenance_request.user_phone or "-" }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= PANEL INFORMATION ================= -->
+
+    <div class="col-lg-6">
+
+        <div class="dashboard-card h-100">
+
+            <h4 class="text-white mb-4">
+
+                <i class="bi bi-grid-3x3-gap-fill text-success me-2"></i>
+
+                Solar Panel
+
+            </h4>
+
+            <div class="detail-item">
+
+                <span>Panel Name</span>
+
+                <strong>
+
+                    {{ maintenance_request.panel_name }}
+
+                </strong>
+
+            </div>
+
+            <div class="detail-item">
+
+                <span>Location</span>
+
+                <strong>
+
+                    {{ maintenance_request.location or "-" }}
+
+                </strong>
+
+            </div>
+
+            <div class="detail-item">
+
+                <span>Capacity</span>
+
+                <strong>
+
+                    {{ maintenance_request.capacity or "-" }}
+
+                    {% if maintenance_request.capacity %}
+
+                        kW
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+            <div class="detail-item">
+
+                <span>Serial Number</span>
+
+                <strong>
+
+                    {{ maintenance_request.serial_number or "-" }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= ISSUE DETAILS ================= -->
+
+    <div class="col-lg-8">
+
+        <div class="dashboard-card h-100">
+
+            <h4 class="text-white mb-4">
+
+                <i class="bi bi-exclamation-triangle-fill text-success me-2"></i>
+
+                Issue Details
+
+            </h4>
+
+            <div class="detail-item">
+
+                <span>Issue Type</span>
+
+                <strong>
+
+                    {{ maintenance_request.issue_type }}
+
+                </strong>
+
+            </div>
+
+            <div class="detail-item">
+
+                <span>Priority</span>
+
+                <strong>
+
+                    {% if maintenance_request.priority == "High" %}
+
+                        <span class="badge bg-danger">
+
+                            High
+
+                        </span>
+
+                    {% elif maintenance_request.priority == "Medium" %}
+
+                        <span class="badge bg-warning text-dark">
+
+                            Medium
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-success">
+
+                            Low
+
+                        </span>
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+            <div class="mt-4">
+
+                <span class="text-muted d-block mb-2">
+
+                    Description
+
+                </span>
+
+                <div class="description-box">
+
+                    {{ maintenance_request.description or "No description provided." }}
+
+                </div>
+
+            </div>
+
+            <div class="detail-item mt-3">
+
+                <span>Request Date</span>
+
+                <strong>
+
+                    {{ maintenance_request.request_date.strftime("%d %B %Y, %I:%M %p") if maintenance_request.request_date else "-" }}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= IMAGE ================= -->
+
+    <div class="col-lg-4">
+
+        <div class="dashboard-card h-100">
+
+            <h4 class="text-white mb-4">
+
+                <i class="bi bi-image text-success me-2"></i>
+
+                Uploaded Image
+
+            </h4>
+
+            {% if maintenance_request.image_path %}
+
+                <img src="{{ url_for('static', filename=maintenance_request.image_path) }}"
+                     class="img-fluid rounded"
+                     alt="Maintenance Image">
+
+            {% else %}
+
+                <div class="text-center py-5">
+
+                    <i class="bi bi-image fs-1 text-muted"></i>
+
+                    <p class="text-muted mt-3">
+
+                        No image uploaded.
+
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- ================= ADMIN ACTIONS ================= -->
+
+<div class="dashboard-card mt-4">
+
+    <h4 class="text-white mb-4">
+
+        <i class="bi bi-shield-check text-success me-2"></i>
+
+        Admin Actions
+
+    </h4>
+
+
+    {% if maintenance_request.request_status == "Pending" %}
+
+        <div class="d-flex gap-3">
+
+            <!-- APPROVE -->
+
+            <form method="POST"
+                  action="{{ url_for(
+                      'admin.update_maintenance_status',
+                      request_id=maintenance_request.request_id
+                  ) }}">
+
+                <input type="hidden"
+                       name="status"
+                       value="Approved">
+
+                <button type="submit"
+                        class="btn btn-success">
+
+                    <i class="bi bi-check-lg me-1"></i>
+
+                    Approve Request
+
+                </button>
+
+            </form>
+
+
+            <!-- REJECT -->
+
+            <form method="POST"
+                  action="{{ url_for(
+                      'admin.update_maintenance_status',
+                      request_id=maintenance_request.request_id
+                  ) }}">
+
+                <input type="hidden"
+                       name="status"
+                       value="Rejected">
+
+                <button type="submit"
+                        class="btn btn-danger">
+
+                    <i class="bi bi-x-lg me-1"></i>
+
+                    Reject Request
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+    {% elif maintenance_request.request_status == "Approved" %}
+
+        <!-- ASSIGN TECHNICIAN -->
+
+        <form method="POST"
+              action="{{ url_for(
+                  'admin.assign_technician',
+                  request_id=maintenance_request.request_id
+              ) }}">
+
+            <div class="row g-3 align-items-end">
+
+                <div class="col-md-8">
+
+                    <label class="form-label text-light">
+
+                        Select Technician
+
+                    </label>
+
+                    <select name="technician_id"
+                            class="form-select"
+                            required>
+
+                        <option value="">
+
+                            -- Select Technician --
+
+                        </option>
+
+                        {% for technician in technicians %}
+
+                            <option value="{{ technician.user_id }}">
+
+                                {{ technician.full_name }}
+
+                                -
+                                {{ technician.email }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <button type="submit"
+                            class="btn btn-success w-100">
+
+                        <i class="bi bi-person-check me-1"></i>
+
+                        Assign Technician
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+
+        {% if not technicians %}
+
+            <div class="alert alert-warning mt-3 mb-0">
+
+                No active technicians are available.
+
+            </div>
+
+        {% endif %}
+
+
+    {% elif maintenance_request.request_status == "Assigned" %}
+
+        <div class="alert alert-info mb-0">
+
+            <i class="bi bi-person-check me-2"></i>
+
+            A technician has been assigned to this request.
+
+        </div>
+
+
+    {% elif maintenance_request.request_status == "Rejected" %}
+
+        <div class="alert alert-danger mb-0">
+
+            <i class="bi bi-x-circle me-2"></i>
+
+            This maintenance request has been rejected.
+
+        </div>
+
+
+    {% elif maintenance_request.request_status == "Completed" %}
+
+    <div class="alert alert-success mb-3">
+
+        <i class="bi bi-check-circle me-2"></i>
+
+        This maintenance request has been completed.
+
+    </div>
+
+
+    <!-- VIEW MAINTENANCE REPORT -->
+
+    <a href="{{ url_for(
+        'admin.view_maintenance_report',
+        request_id=maintenance_request.request_id
+    ) }}"
+    class="btn btn-success">
+
+        <i class="bi bi-file-earmark-text me-1"></i>
+
+        View Maintenance Report
+
+    </a>
+
+{% endif %}
+
+</div>
+
+
+{% endblock %}

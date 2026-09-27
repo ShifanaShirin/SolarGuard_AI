@@ -1,0 +1,503 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}
+
+User Dashboard
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Welcome Banner -->
+
+<!-- Premium Welcome Banner -->
+
+<div class="welcome-banner">
+
+    <div class="welcome-left">
+
+        <!-- <span class="welcome-tag">
+
+            AI Dashboard
+
+        </span> -->
+
+        <h2>
+
+            Good Evening,
+            {{ session.full_name }} 👋
+
+        </h2>
+
+        <p>
+
+            Welcome back to SolarGuard AI.
+
+            Monitor your solar panels using AI-powered
+            analytics, defect detection and predictive
+            maintenance.
+
+        </p>
+
+    </div>
+
+    <!-- <div class="welcome-right">
+
+        <div class="today-card">
+
+            <h5>
+
+                Today's Overview
+
+            </h5>
+
+            <div class="today-item">
+
+                ☀ Weather
+
+                <strong>Sunny</strong>
+
+            </div>
+
+            <div class="today-item">
+
+                ⚡ Avg Efficiency
+
+                <strong>95%</strong>
+
+            </div>
+
+            <div class="today-item">
+
+                🤖 AI Alerts
+
+                <strong>2</strong>
+
+            </div>
+
+            <div class="today-item">
+
+                🛠 Pending Jobs
+
+                <strong>1</strong>
+
+            </div>
+
+        </div>
+
+    </div> -->
+
+</div>
+
+<div class="row g-4 mb-5">
+
+    <!-- Registered Panels -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-icon">
+
+                    <i class="bi bi-grid-3x3-gap-fill"></i>
+
+                </div>
+
+                <!-- <span class="stat-badge">
+
+                    +12%
+
+                </span> -->
+
+            </div>
+
+            <h5>Registered Panels</h5>
+
+<h2>{{ stats.panels }}</h2>
+
+<p>Total Installed Panels</p>
+
+        </div>
+
+    </div>
+
+    <!-- AI Detection -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <a href="{{ url_for('ai.detection') }}" class="text-decoration-none text-reset">
+
+    <div class="stat-card">
+
+        <div class="stat-top">
+
+            <div class="stat-icon">
+
+                <i class="bi bi-cpu-fill"></i>
+
+            </div>
+
+        </div>
+
+        <h5>AI Detections</h5>
+
+        <h2>{{ stats.detections }}</h2>
+
+        <p>AI Analyses Completed</p>
+
+    </div>
+
+</a>
+
+    </div>
+
+    <!-- Maintenance -->
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-icon">
+
+                    <i class="bi bi-tools"></i>
+
+                </div>
+
+                <!-- <span class="stat-badge">
+
+                    3 Pending
+
+                </span> -->
+
+            </div>
+
+            <h5>Maintenance</h5>
+
+<h2>{{ stats.maintenance }}</h2>
+
+<p>Open Service Requests</p>
+
+        </div>
+
+    </div>
+
+    <!-- Efficiency -->
+
+    <!-- <div class="col-lg-3 col-md-6">
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <div class="stat-icon">
+
+                    <i class="bi bi-lightning-charge-fill"></i>
+
+                </div>
+
+                 <span class="stat-badge">
+
+                    Excellent
+
+                </span> 
+
+            </div>
+
+            <h5>Efficiency</h5>
+
+<h2>{{ stats.efficiency }}{% if stats.efficiency != "--" %}%{% endif %}</h2>
+
+<p>Average Panel Health</p>
+
+        </div>
+
+    </div> -->
+
+</div>
+
+<!-- ================= Quick Actions ================= -->
+
+<div class="section-header">
+
+    <div>
+
+        <h3>Quick Actions</h3>
+
+        <p>Frequently used actions</p>
+
+    </div>
+
+</div>
+
+<div class="row g-4 mb-5">
+
+    <div class="col-lg-3 col-md-6">
+
+    <a href="{{ url_for('panel.my_panels') }}"
+       class="quick-card">
+
+        <div class="quick-icon">
+
+            <i class="bi bi-grid-3x3-gap-fill"></i>
+
+        </div>
+
+        <h5>
+
+            My Panels
+
+        </h5>
+
+        <p>
+
+            View and manage your registered solar panels.
+
+        </p>
+
+        <span>
+
+            Open →
+
+        </span>
+
+    </a>
+
+</div>
+
+    <div class="col-lg-3 col-md-6">
+
+    <a href="{{ url_for('ai.detection') }}" class="quick-card">
+
+        <div class="quick-icon">
+
+            <i class="bi bi-cpu-fill"></i>
+
+        </div>
+
+        <h5>AI Detection</h5>
+
+        <p>Analyze uploaded images</p>
+
+        <span>
+
+            Analyze →
+
+        </span>
+
+    </a>
+
+</div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <a href="{{ url_for('maintenance.my_requests') }}"
+   class="quick-card">
+
+            <div class="quick-icon">
+
+                <i class="bi bi-tools"></i>
+
+            </div>
+
+            <h5>Maintenance</h5>
+
+            <p>Create maintenance requests</p>
+
+            <span>
+
+                Request →
+
+            </span>
+
+        </a>
+
+    </div>
+
+    <!-- <div class="col-lg-3 col-md-6">
+
+        <a href="#" class="quick-card">
+
+            <div class="quick-icon">
+
+                <i class="bi bi-cloud-sun-fill"></i>
+
+            </div>
+
+            <h5>Weather</h5>
+
+            <p>Check current weather</p>
+
+            <span>
+
+                View →
+
+            </span>
+
+        </a>
+
+    </div> -->
+
+</div>
+
+<!-- ================= Dashboard Bottom ================= -->
+
+<div class="row g-4">
+
+    <!-- Recent Solar Panels -->
+
+    <div class="col-lg-8">
+
+        <div class="dashboard-card">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+
+                    <h4>
+                        <i class="bi bi-grid-3x3-gap-fill text-success"></i>
+                        Recent Solar Panels
+                    </h4>
+
+                    <p class="section-subtitle">
+                        Latest registered panels
+                    </p>
+
+                </div>
+
+                <a href="{{ url_for('panel.my_panels') }}"
+   class="btn btn-success">
+
+    View All
+
+</a>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table dashboard-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Panel</th>
+                            <th>Capacity</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+{% if recent_panels %}
+
+    {% for panel in recent_panels %}
+
+    <tr>
+
+        <td>{{ panel.panel_name }}</td>
+
+        <td>{{ panel.capacity }} kW</td>
+
+        <td>
+
+            <span class="badge bg-success">
+
+                Registered
+
+            </span>
+
+        </td>
+
+
+    </tr>
+
+    {% endfor %}
+
+{% else %}
+
+<tr>
+
+    <td colspan="4" class="text-center">
+
+        No solar panels registered yet.
+
+    </td>
+
+</tr>
+
+{% endif %}
+
+</tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- AI Insights -->
+
+    <!-- <div class="col-lg-4">
+
+        <div class="ai-widget">
+
+            <div class="ai-header">
+
+                🤖 AI Insights
+
+            </div>
+
+            <div class="ai-score">
+
+                96%
+
+            </div>
+
+            <p>
+
+                Overall Solar Health
+
+            </p>
+
+            <hr>
+
+            <div class="ai-item">
+
+                <span>Recommendation</span>
+
+                <strong>Clean 2 Panels</strong>
+
+            </div>
+
+            <div class="ai-item">
+
+                <span>AI Confidence</span>
+
+                <strong>98.7%</strong>
+
+            </div>
+
+            <div class="ai-item">
+
+                <span>Next Inspection</span>
+
+                <strong>3 Days</strong>
+
+            </div>
+
+        </div>
+
+    </div> -->
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,215 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}
+My Solar Panels
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Header -->
+
+    <div class="section-header mb-4">
+
+        <div>
+
+            <h3>
+
+                <i class="bi bi-grid-3x3-gap-fill text-success"></i>
+
+                My Solar Panels
+
+            </h3>
+
+            <p>
+
+                Manage all your registered solar panels.
+
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('panel.register_panel') }}"
+           class="btn btn-success">
+
+            <i class="bi bi-plus-circle-fill"></i>
+
+            Register New Panel
+
+        </a>
+
+    </div>
+
+    <!-- Search -->
+
+    <div class="col-md-8 mb-3">
+
+                <label class="form-label fw-semibold">
+
+                    <i class="bi bi-search"></i>
+
+                    Search
+
+                </label>
+
+                <input
+    type="text"
+    id="panelSearch"
+    class="form-control"
+    placeholder="Search by panel name, manufacturer, location or serial number...">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Panels Table -->
+
+    <div class="dashboard-card">
+
+        {% if panels %}
+
+        <div class="table-responsive">
+
+            <table class="table dashboard-table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Panel Name</th>
+
+                        <th>Manufacturer</th>
+
+                        <th>Capacity</th>
+
+                        <th>Location</th>
+
+                        <th>Installed</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="panelTable">
+
+                    {% for panel in panels %}
+
+                    <tr
+    data-name="{{ panel.panel_name|lower }}"
+    data-manufacturer="{{ panel.manufacturer|lower }}"
+    data-location="{{ panel.location|lower }}"
+    data-serial="{{ panel.serial_number|lower }}">
+
+                        <td>
+
+                            <strong>
+
+                                {{ panel.panel_name }}
+
+                            </strong>
+
+                        </td>
+
+                        <td>
+
+                            {{ panel.manufacturer }}
+
+                        </td>
+
+                        <td>
+
+                            {{ panel.capacity }} kW
+
+                        </td>
+
+                        <td>
+
+                            {{ panel.location }}
+
+                        </td>
+
+                        <td>
+
+                            {{ panel.installation_date }}
+
+                        </td>
+
+                        <td>
+
+                            <a
+href="{{ url_for('panel.view_panel', panel_id=panel.panel_id) }}"
+class="btn btn-sm btn-primary">
+
+<i class="bi bi-eye-fill"></i>
+
+</a>
+
+                            <a
+    href="{{ url_for('panel.edit_panel', panel_id=panel.panel_id) }}"
+    class="btn btn-sm btn-warning">
+
+    <i class="bi bi-pencil-fill"></i>
+
+</a>
+
+                            <a
+    href="{{ url_for('panel.delete_panel', panel_id=panel.panel_id) }}"
+    class="btn btn-sm btn-danger"
+    onclick="return confirm('Are you sure you want to delete this panel?');">
+
+    <i class="bi bi-trash-fill"></i>
+
+</a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="text-center py-5">
+
+            <i class="bi bi-grid-3x3-gap"
+               style="font-size:70px;color:#22C55E;"></i>
+
+            <h3 class="mt-4">
+
+                No Solar Panels Found
+
+            </h3>
+
+            <p class="text-secondary">
+
+                Register your first solar panel to begin monitoring.
+
+            </p>
+
+            <a href="{{ url_for('panel.register_panel') }}"
+               class="btn btn-success mt-3">
+
+                Register Panel
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

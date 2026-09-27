@@ -1,0 +1,86 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}
+Maintenance Request Details
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2 class="mb-4">
+        Maintenance Request Details
+    </h2>
+
+    <table class="table table-bordered">
+
+        <tr>
+            <th width="250">Panel</th>
+            <td>{{ request_data.panel_name }}</td>
+        </tr>
+
+        <tr>
+            <th>Location</th>
+            <td>{{ request_data.location }}</td>
+        </tr>
+
+        <tr>
+            <th>Issue Type</th>
+            <td>{{ request_data.issue_type }}</td>
+        </tr>
+
+        <tr>
+            <th>Priority</th>
+            <td>{{ request_data.priority }}</td>
+        </tr>
+
+        <tr>
+            <th>Status</th>
+            <td>{{ request_data.request_status }}</td>
+        </tr>
+
+        <tr>
+            <th>Description</th>
+            <td>{{ request_data.description }}</td>
+        </tr>
+
+        <tr>
+            <th>Request Date</th>
+            <td>{{ request_data.request_date }}</td>
+        </tr>
+
+        <tr>
+            <th>Image</th>
+
+            <td>
+
+            {% if request_data.image_path %}
+
+                <img
+                src="{{ url_for('static', filename=request_data.image_path) }}"
+                class="img-fluid rounded"
+                style="max-width:400px;">
+
+            {% else %}
+
+                No image uploaded.
+
+            {% endif %}
+
+            </td>
+
+        </tr>
+
+    </table>
+
+    <a
+    href="{{ url_for('maintenance.my_requests') }}"
+    class="btn btn-secondary">
+
+        Back
+
+    </a>
+
+</div>
+
+{% endblock %}

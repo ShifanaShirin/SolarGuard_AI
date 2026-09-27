@@ -1,0 +1,332 @@
+{% extends "layouts/admin_dashboard_base.html" %}
+
+
+{% block title %}
+Technicians
+{% endblock %}
+
+
+{% block content %}
+
+<div class="admin-dashboard">
+
+
+    <!-- HEADER -->
+
+    <div class="admin-page-header">
+
+        <h2>
+
+            <i class="bi bi-person-gear me-2"></i>
+
+            Technicians
+
+        </h2>
+
+        <p>
+            Monitor technician workload and maintenance performance.
+        </p>
+
+    </div>
+
+
+
+    <!-- STATISTICS -->
+
+    <div class="row g-4 mb-5">
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-person-badge-fill"></i>
+
+                </div>
+
+                <h6>
+                    Total Technicians
+                </h6>
+
+                <h2>
+                    {{ technicians|length }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-clipboard-check"></i>
+
+                </div>
+
+                <h6>
+                    Total Jobs
+                </h6>
+
+                <h2>
+                    {{ technicians | sum(attribute='total_jobs') }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-check-circle"></i>
+
+                </div>
+
+                <h6>
+                    Completed Jobs
+                </h6>
+
+                <h2>
+                    {{ technicians | sum(attribute='completed_jobs') }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="admin-stat-card">
+
+                <div class="admin-stat-icon">
+
+                    <i class="bi bi-tools"></i>
+
+                </div>
+
+                <h6>
+                    In Progress
+                </h6>
+
+                <h2>
+                    {{ technicians | sum(attribute='in_progress_jobs') }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TECHNICIAN TABLE -->
+
+    <div class="dashboard-card">
+
+        <h4 class="text-white mb-1">
+
+            <i class="bi bi-people-fill text-success me-2"></i>
+
+            Technician Performance
+
+        </h4>
+
+        <p class="section-subtitle mb-4">
+
+            Maintenance workload and job status
+
+        </p>
+
+
+        <div class="table-responsive">
+
+            <table class="table dashboard-table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Technician</th>
+
+                        <th>Email</th>
+
+                        <th>Total</th>
+
+                        <th>Assigned</th>
+
+                        <th>Accepted</th>
+
+                        <th>In Progress</th>
+
+                        <th>Completed</th>
+
+                        <th>Rejected</th>
+
+                        <th>Cancelled</th>
+
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if technicians %}
+
+                        {% for technician in technicians %}
+
+                        <tr>
+
+                            <td>
+
+                                <strong>
+                                    {{ technician.full_name }}
+                                </strong>
+
+                            </td>
+
+
+                            <td>
+                                {{ technician.email }}
+                            </td>
+
+
+                            <td>
+                                {{ technician.total_jobs or 0 }}
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    {{ technician.assigned_jobs or 0 }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-info">
+
+                                    {{ technician.accepted_jobs or 0 }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-warning text-dark">
+
+                                    {{ technician.in_progress_jobs or 0 }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-success">
+
+                                    {{ technician.completed_jobs or 0 }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-danger">
+
+                                    {{ technician.rejected_jobs or 0 }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="badge bg-secondary">
+
+                                    {{ technician.cancelled_jobs or 0 }}
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <a
+                                    href="{{ url_for(
+                                        'admin.technician_details',
+                                        technician_id=technician.technician_id
+                                    ) }}"
+                                    class="btn btn-sm btn-outline-success"
+                                >
+
+                                    <i class="bi bi-eye me-1"></i>
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="10"
+                                class="text-center py-5">
+
+                                <i class="bi bi-person-x fs-1 text-muted"></i>
+
+                                <p class="text-muted mt-3">
+
+                                    No technicians found.
+
+                                </p>
+
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

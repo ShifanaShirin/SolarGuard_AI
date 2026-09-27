@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Login | SolarGuard AI{% endblock %}
+
+{% block content %}
+
+<section class="auth-section">
+
+    <div class="auth-container">
+
+        <!-- Left Side -->
+
+        <div class="auth-left">
+
+            <div class="brand">
+
+                <h1>☀ SolarGuard AI</h1>
+
+                <p class="tagline">
+                    Smart Solar Panel Monitoring
+                </p>
+
+            </div>
+
+            <div class="auth-content">
+
+                <span class="hero-badge">
+                    Welcome Back
+                </span>
+
+                <h2>
+
+                    Monitor.
+                    Analyze.
+                    Optimize.
+
+                </h2>
+
+                <p>
+
+                    Login to access your dashboard,
+                    monitor your solar panels,
+                    analyze AI predictions and manage
+                    maintenance requests.
+
+                </p>
+
+                <div class="auth-features">
+
+                    <p><i class="bi bi-check-circle-fill"></i>AI Powered Defect Detection</p>
+
+                    <p><i class="bi bi-check-circle-fill"></i>Real-time Monitoring</p>
+
+                    <p><i class="bi bi-check-circle-fill"></i>Maintenance Tracking</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="auth-right">
+
+            <div class="auth-card">
+
+                <h2>Login</h2>
+
+                <p class="text-muted mb-4">
+                    Login to continue
+                </p>
+
+                {% if error %}
+                <div class="alert alert-danger">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <form method="POST">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            class="form-control"
+                            name="email"
+                            placeholder="Enter your email"
+                            required>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            class="form-control"
+                            name="password"
+                            placeholder="Enter your password"
+                            required>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-success">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        Login
+
+                    </button>
+
+                </form>
+
+                <div class="text-center mt-4">
+
+                    Don't have an account?
+
+                    <a href="{{ url_for('auth.register') }}">
+                        Register
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

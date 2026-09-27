@@ -1,0 +1,316 @@
+{% extends "layouts/technician_dashboard_base.html" %}
+
+{% block title %}
+
+Maintenance Report
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="mb-4">
+
+    <a href="{{ url_for('technician.dashboard') }}"
+       class="text-decoration-none text-success">
+
+        <i class="bi bi-arrow-left me-1"></i>
+
+        Back to Dashboard
+
+    </a>
+
+    <h2 class="mt-3 mb-1">
+
+        Maintenance Completion Report
+
+    </h2>
+
+    <p class="text-muted">
+
+        Request #{{ report.request_id }}
+
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     REPORT HEADER
+====================================================== -->
+
+<div class="dashboard-card mb-4">
+
+    <div class="d-flex justify-content-between align-items-start">
+
+        <div>
+
+            <h4 class="mb-1">
+
+                {{ report.panel_name }}
+
+            </h4>
+
+            <p class="text-muted mb-0">
+
+                Maintenance Request #{{ report.request_id }}
+
+            </p>
+
+        </div>
+
+        <span class="badge bg-success fs-6">
+
+            {{ report.report_status }}
+
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="row g-4">
+
+
+    <!-- =================================================
+         JOB DETAILS
+    ================================================== -->
+
+    <div class="col-lg-6">
+
+        <div class="dashboard-card h-100">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-tools text-success me-2"></i>
+
+                Job Details
+
+            </h4>
+
+
+            <div class="mb-3">
+
+                <small class="text-muted">
+                    Issue Type
+                </small>
+
+                <div class="fw-semibold">
+
+                    {{ report.issue_type }}
+
+                </div>
+
+            </div>
+
+
+            <div class="mb-3">
+
+                <small class="text-muted">
+                    Priority
+                </small>
+
+                <div>
+
+                    {% if report.priority == "High" %}
+
+                        <span class="badge bg-danger">
+                            High
+                        </span>
+
+                    {% elif report.priority == "Medium" %}
+
+                        <span class="badge bg-warning text-dark">
+                            Medium
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-success">
+                            Low
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="mb-3">
+
+                <small class="text-muted">
+                    Panel
+                </small>
+
+                <div class="fw-semibold">
+
+                    {{ report.panel_name }}
+
+                </div>
+
+            </div>
+
+
+            <div class="mb-3">
+
+                <small class="text-muted">
+                    Manufacturer
+                </small>
+
+                <div>
+
+                    {{ report.manufacturer or "Not available" }}
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <small class="text-muted">
+                    Location
+                </small>
+
+                <div>
+
+                    {{ report.location or "Not available" }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         COMPLETION DETAILS
+    ================================================== -->
+
+    <div class="col-lg-6">
+
+        <div class="dashboard-card h-100">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+
+                Completion Details
+
+            </h4>
+
+
+            <div class="mb-4">
+
+                <h6 class="fw-semibold">
+                    Inspection Notes
+                </h6>
+
+                <p class="text-muted">
+
+                    {{ report.inspection_notes or
+                       "No inspection notes provided." }}
+
+                </p>
+
+            </div>
+
+
+            <div class="mb-4">
+
+                <h6 class="fw-semibold">
+                    Repair Details
+                </h6>
+
+                <p class="text-muted">
+
+                    {{ report.repair_details or
+                       "No repair details provided." }}
+
+                </p>
+
+            </div>
+
+
+            <div class="mb-4">
+
+                <h6 class="fw-semibold">
+                    Parts Replaced
+                </h6>
+
+                <p class="text-muted">
+
+                    {{ report.parts_replaced or
+                       "No parts replaced." }}
+
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h6 class="fw-semibold">
+                    Completion Date
+                </h6>
+
+                <p class="text-muted">
+
+                    {{ report.completion_date }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SERVICE IMAGE
+    ================================================== -->
+
+    {% if report.service_image %}
+
+    <div class="col-lg-12">
+
+        <div class="dashboard-card">
+
+            <h4 class="mb-4">
+
+                <i class="bi bi-camera-fill text-success me-2"></i>
+
+                Service Image
+
+            </h4>
+
+
+            <div class="text-center">
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename=report.service_image
+                    ) }}"
+                    alt="Service completion image"
+                    class="img-fluid rounded"
+                    style="max-height: 500px;"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}
