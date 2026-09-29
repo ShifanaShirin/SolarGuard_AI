@@ -286,11 +286,30 @@ class TechnicianService:
 
         try:
 
-            cursor = connection.cursor()
+            cursor = connection.cursor(dictionary=True)
 
             # -------------------------------------------------
-            # Make sure this request is assigned to technician
-            # and is still in Assigned state
+            # Get customer/user ID
+            # -------------------------------------------------
+
+            cursor.execute(
+                """
+                SELECT user_id
+                FROM maintenance_requests
+                WHERE request_id = %s
+                """,
+                (request_id,)
+            )
+
+            request_data = cursor.fetchone()
+
+            if not request_data:
+                return False
+
+            user_id = request_data["user_id"]
+
+            # -------------------------------------------------
+            # Accept assignment
             # -------------------------------------------------
 
             cursor.execute(
@@ -309,11 +328,41 @@ class TechnicianService:
                 )
             )
 
+            if cursor.rowcount == 0:
+                connection.rollback()
+                return False
+
+            # -------------------------------------------------
+            # Notification to customer
+            # -------------------------------------------------
+
+            cursor.execute(
+                """
+                INSERT INTO notifications
+                (
+                    user_id,
+                    title,
+                    message,
+                    notification_type,
+                    is_read
+                )
+                VALUES (%s, %s, %s, %s, %s)
+                """,
+                (
+                    user_id,
+                    "Maintenance Request Accepted",
+                    (
+                        f"Your maintenance request #{request_id} "
+                        "has been accepted by the assigned technician."
+                    ),
+                    "Maintenance",
+                    0
+                )
+            )
+
             connection.commit()
 
-            # rowcount tells us whether the update actually happened
-
-            return cursor.rowcount > 0
+            return True
 
         except Exception as e:
 
@@ -346,7 +395,27 @@ class TechnicianService:
 
         try:
 
-            cursor = connection.cursor()
+            cursor = connection.cursor(dictionary=True)
+
+            # -------------------------------------------------
+            # Get customer/user ID
+            # -------------------------------------------------
+
+            cursor.execute(
+                """
+                SELECT user_id
+                FROM maintenance_requests
+                WHERE request_id = %s
+                """,
+                (request_id,)
+            )
+
+            request_data = cursor.fetchone()
+
+            if not request_data:
+                return False
+
+            user_id = request_data["user_id"]
 
             # -------------------------------------------------
             # Update technician assignment
@@ -368,10 +437,6 @@ class TechnicianService:
                 )
             )
 
-            # -------------------------------------------------
-            # Make sure the assignment was actually updated
-            # -------------------------------------------------
-
             if cursor.rowcount == 0:
 
                 connection.rollback()
@@ -379,7 +444,7 @@ class TechnicianService:
                 return False
 
             # -------------------------------------------------
-            # Update maintenance request status
+            # Update maintenance request
             # -------------------------------------------------
 
             cursor.execute(
@@ -391,6 +456,34 @@ class TechnicianService:
                 WHERE request_id = %s
                 """,
                 (request_id,)
+            )
+
+            # -------------------------------------------------
+            # Notification to customer
+            # -------------------------------------------------
+
+            cursor.execute(
+                """
+                INSERT INTO notifications
+                (
+                    user_id,
+                    title,
+                    message,
+                    notification_type,
+                    is_read
+                )
+                VALUES (%s, %s, %s, %s, %s)
+                """,
+                (
+                    user_id,
+                    "Maintenance Work Started",
+                    (
+                        f"Maintenance work has started for "
+                        f"your request #{request_id}."
+                    ),
+                    "Maintenance",
+                    0
+                )
             )
 
             connection.commit()
@@ -408,7 +501,6 @@ class TechnicianService:
         finally:
 
             if cursor:
-
                 cursor.close()
 
             connection.close()
@@ -436,17 +528,37 @@ class TechnicianService:
 
         try:
 
-            cursor = connection.cursor()
+            cursor = connection.cursor(dictionary=True)
 
             # -------------------------------------------------
-            # Check that this job belongs to the technician
-            # and is currently In Progress
+            # Get customer/user ID
+            # -------------------------------------------------
+
+            cursor.execute(
+                """
+                SELECT user_id
+                FROM maintenance_requests
+                WHERE request_id = %s
+                """,
+                (request_id,)
+            )
+
+            request_data = cursor.fetchone()
+
+            if not request_data:
+                return False
+
+            user_id = request_data["user_id"]
+
+            # -------------------------------------------------
+            # Check assignment
             # -------------------------------------------------
 
             cursor.execute(
                 """
                 SELECT assignment_id
                 FROM technician_assignments
+
                 WHERE request_id = %s
                 AND technician_id = %s
                 AND assignment_status = 'In Progress'
@@ -460,11 +572,10 @@ class TechnicianService:
             assignment = cursor.fetchone()
 
             if not assignment:
-
                 return False
 
             # -------------------------------------------------
-            # Insert maintenance report
+            # Create maintenance report
             # -------------------------------------------------
 
             cursor.execute(
@@ -480,6 +591,7 @@ class TechnicianService:
                     completion_date,
                     report_status
                 )
+
                 VALUES
                 (
                     %s,
@@ -534,6 +646,35 @@ class TechnicianService:
                 WHERE request_id = %s
                 """,
                 (request_id,)
+            )
+
+            # -------------------------------------------------
+            # Notification to customer
+            # -------------------------------------------------
+
+            cursor.execute(
+                """
+                INSERT INTO notifications
+                (
+                    user_id,
+                    title,
+                    message,
+                    notification_type,
+                    is_read
+                )
+                VALUES (%s, %s, %s, %s, %s)
+                """,
+                (
+                    user_id,
+                    "Maintenance Completed",
+                    (
+                        f"Your maintenance request #{request_id} "
+                        "has been completed. Your service report "
+                        "is now available."
+                    ),
+                    "Maintenance",
+                    0
+                )
             )
 
             connection.commit()

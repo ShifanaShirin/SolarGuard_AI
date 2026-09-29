@@ -82,12 +82,23 @@ Panel Details
 
     </table>
 
-    <a href="{{ url_for('panel.my_panels') }}"
-       class="btn btn-success">
+    <div class="d-flex gap-2 mt-4">
 
-        Back
-
+    <a
+        href="{{ url_for('panel.panel_analytics', panel_id=panel.panel_id) }}"
+        class="btn btn-success"
+    >
+        📊 Performance Analytics
     </a>
+
+    <a
+        href="{{ url_for('panel.my_panels') }}"
+        class="btn btn-outline-secondary"
+    >
+        ← Back
+    </a>
+
+</div>
 
 </div>
 

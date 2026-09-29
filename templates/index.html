@@ -1,7 +1,3 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 {% extends 'base.html' %}
 
 {% block title %}SolarGuard AI{% endblock %}
@@ -33,19 +29,35 @@
             <ul class="navbar-nav ms-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
+
+                    <a class="nav-link active" href="#">
+                        Home
+                    </a>
+
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+
+                    <a class="nav-link" href="#features">
+                        Features
+                    </a>
+
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+
+                    <a class="nav-link" href="#">
+                        About
+                    </a>
+
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+
+                    <a class="nav-link" href="#">
+                        Contact
+                    </a>
+
                 </li>
 
                 <li class="nav-item ms-3">
@@ -58,6 +70,7 @@
                     </a>
 
                 </li>
+
                 <li class="nav-item ms-3">
 
                     <a href="{{ url_for('auth.register') }}"
@@ -76,6 +89,7 @@
     </div>
 
 </nav>
+
 
 <!-- HERO SECTION -->
 
@@ -102,64 +116,36 @@
         <p>
 
             Detect panel defects, estimate efficiency,
-            predict maintenance requirements and monitor
-            solar performance using Artificial Intelligence.
+            manage maintenance requirements and monitor
+            solar panel performance using Artificial Intelligence.
 
         </p>
 
+
         <div class="hero-buttons">
 
-            <a href="{{ url_for('auth.register') }}" class="btn-green">
+            <a href="{{ url_for('auth.register') }}"
+               class="btn-green">
 
                 Get Started →
 
             </a>
 
-            <a href="#" class="btn-outline">
+            <a href="#features"
+               class="btn-outline">
 
-                <i class="bi bi-play-fill"></i> Watch Demo
+                <i class="bi bi-grid-fill"></i>
+                Explore Features
 
             </a>
 
         </div>
 
-        <div class="stats">
-
-            <div class="stat-box">
-
-                <h2>250+</h2>
-
-                <span>Panels</span>
-
-            </div>
-
-            <div class="stat-box">
-
-                <h2>96%</h2>
-
-                <span>AI Accuracy</span>
-
-            </div>
-
-            <div class="stat-box">
-
-                <h2>120</h2>
-
-                <span>Users</span>
-
-            </div>
-
-            <div class="stat-box">
-
-                <h2>35</h2>
-
-                <span>Technicians</span>
-
-            </div>
-
-        </div>
 
     </div>
+
+
+    <!-- AI INFORMATION CARD -->
 
     <div class="hero-right">
 
@@ -171,65 +157,112 @@
 
             </div>
 
+
             <h2>
 
-                Solar Panel #SP-1024
+                Solar Panel AI Analysis
 
             </h2>
 
-            <div class="card-item">
-
-                <span>🟢 Status</span>
-
-                <strong>Healthy</strong>
-
-            </div>
 
             <div class="card-item">
 
-                <span>⚡ Efficiency</span>
+                <span>
+                    🧠 AI Model
+                </span>
 
-                <strong>96%</strong>
+                <strong>
+                    ResNet18
+                </strong>
 
             </div>
+
 
             <div class="card-item">
 
-                <span>🌡 Temperature</span>
+                <span>
+                    🎯 Detection Classes
+                </span>
 
-                <strong>38°C</strong>
+                <strong>
+                    5
+                </strong>
 
             </div>
+
 
             <div class="card-item">
 
-                <span>☀ Dust Level</span>
+                <span>
+                    ☀️ Clean
+                </span>
 
-                <strong>Low</strong>
+                <strong>
+                    Supported
+                </strong>
 
             </div>
+
 
             <div class="card-item">
 
-                <span>🛠 Maintenance</span>
+                <span>
+                    🧹 Dusty
+                </span>
 
-                <strong>Not Required</strong>
+                <strong>
+                    Supported
+                </strong>
 
             </div>
+
 
             <div class="card-item">
 
-                <span>🎯 Confidence</span>
+                <span>
+                    🐦 Bird-Drop
+                </span>
 
-                <strong>98.7%</strong>
+                <strong>
+                    Supported
+                </strong>
 
             </div>
+
+
+            <div class="card-item">
+
+                <span>
+                    ⚡ Electrical Damage
+                </span>
+
+                <strong>
+                    Supported
+                </strong>
+
+            </div>
+
+
+            <div class="card-item">
+
+                <span>
+                    ⚠️ Physical Damage
+                </span>
+
+                <strong>
+                    Supported
+                </strong>
+
+            </div>
+
 
         </div>
 
     </div>
 
 </section>
+
+
 
 <!-- FEATURES -->
 
@@ -239,15 +272,24 @@
 
         <div class="text-center mb-5">
 
-            <h2 class="fw-bold">Powerful Features</h2>
+            <h2 class="fw-bold">
+                Powerful Features
+            </h2>
 
             <p class="text-secondary">
-                Everything required to manage and monitor solar panels intelligently.
+
+                Everything required to manage and monitor
+                solar panels intelligently.
+
             </p>
 
         </div>
 
+
         <div class="row g-4">
+
+
+            <!-- AI DEFECT DETECTION -->
 
             <div class="col-md-4">
 
@@ -255,15 +297,25 @@
 
                     <i class="bi bi-cpu-fill feature-icon"></i>
 
-                    <h4>AI Defect Detection</h4>
+                    <h4>
+                        AI Defect Detection
+                    </h4>
 
                     <p>
-                        Detect cracks, hotspots, dust, and other visible defects using deep learning.
+
+                        Analyze uploaded solar panel images
+                        using artificial intelligence to identify
+                        supported panel conditions.
+
                     </p>
 
                 </div>
 
             </div>
+
+
+
+            <!-- EFFICIENCY ESTIMATION -->
 
             <div class="col-md-4">
 
@@ -271,15 +323,25 @@
 
                     <i class="bi bi-lightning-charge-fill feature-icon"></i>
 
-                    <h4>Efficiency Prediction</h4>
+                    <h4>
+                        Efficiency Estimation
+                    </h4>
 
                     <p>
-                        Estimate the current efficiency of every registered solar panel.
+
+                        Estimate the current efficiency of a
+                        solar panel based on the detected
+                        panel condition.
+
                     </p>
 
                 </div>
 
             </div>
+
+
+
+            <!-- MAINTENANCE REQUESTS -->
 
             <div class="col-md-4">
 
@@ -287,47 +349,77 @@
 
                     <i class="bi bi-tools feature-icon"></i>
 
-                    <h4>Maintenance Requests</h4>
+                    <h4>
+                        Maintenance Requests
+                    </h4>
 
                     <p>
-                        Users can submit service requests and track technician progress.
+
+                        Users can submit maintenance requests
+                        and track the progress of their
+                        service requests.
+
                     </p>
 
                 </div>
 
             </div>
+
+
+
+            <!-- AI ANALYSIS HISTORY -->
 
             <div class="col-md-4">
 
                 <div class="feature-card">
 
-                    <i class="bi bi-bar-chart-fill feature-icon"></i>
+                    <i class="bi bi-clock-history feature-icon"></i>
 
-                    <h4>Analytics Dashboard</h4>
+                    <h4>
+                        AI Analysis History
+                    </h4>
 
                     <p>
-                        Interactive charts showing panel health, maintenance, and efficiency.
+
+                        View previous AI analysis results,
+                        detected conditions, confidence scores,
+                        efficiency estimates and recommendations.
+
                     </p>
 
                 </div>
 
             </div>
+
+
+
+            <!-- TECHNICIAN WORKFLOW -->
 
             <div class="col-md-4">
 
                 <div class="feature-card">
 
-                    <i class="bi bi-bell-fill feature-icon"></i>
+                    <i class="bi bi-person-workspace feature-icon"></i>
 
-                    <h4>Notifications</h4>
+                    <h4>
+                        Technician Workflow
+                    </h4>
 
                     <p>
-                        Receive alerts for maintenance schedules and AI-generated recommendations.
+
+                        Technicians can manage assigned
+                        maintenance jobs, update service progress
+                        and complete maintenance reports.
+
                     </p>
 
                 </div>
 
             </div>
+
+
+
+            <!-- SECURE ACCESS -->
 
             <div class="col-md-4">
 
@@ -335,20 +427,184 @@
 
                     <i class="bi bi-shield-check feature-icon"></i>
 
-                    <h4>Secure Access</h4>
+                    <h4>
+                        Secure Access
+                    </h4>
 
                     <p>
-                        Role-based authentication for Users, Administrators, and Technicians.
+
+                        Role-based authentication provides
+                        separate access for Users, Administrators
+                        and Technicians.
+
                     </p>
 
                 </div>
 
             </div>
 
+
         </div>
 
     </div>
 
 </section>
+
+
+
+<!-- AI DETECTION CLASSES -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="fw-bold">
+                AI Detection Classes
+            </h2>
+
+            <p class="text-secondary">
+
+                The AI model supports five solar panel
+                conditions.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4 justify-content-center">
+
+
+            <!-- CLEAN -->
+
+            <div class="col-md-4 col-lg-2">
+
+                <div class="feature-card text-center">
+
+                    <i class="bi bi-sun feature-icon"></i>
+
+                    <h5>
+                        Clean
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DUSTY -->
+
+            <div class="col-md-4 col-lg-2">
+
+                <div class="feature-card text-center">
+
+                    <i class="bi bi-cloud-haze feature-icon"></i>
+
+                    <h5>
+                        Dusty
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BIRD DROP -->
+
+            <div class="col-md-4 col-lg-2">
+
+                <div class="feature-card text-center">
+
+                    <i class="bi bi-feather feature-icon"></i>
+
+                    <h5>
+                        Bird-Drop
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ELECTRICAL DAMAGE -->
+
+            <div class="col-md-4 col-lg-2">
+
+                <div class="feature-card text-center">
+
+                    <i class="bi bi-lightning feature-icon"></i>
+
+                    <h5>
+                        Electrical-Damage
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PHYSICAL DAMAGE -->
+
+            <div class="col-md-4 col-lg-2">
+
+                <div class="feature-card text-center">
+
+                    <i class="bi bi-exclamation-triangle feature-icon"></i>
+
+                    <h5>
+                        Physical-Damage
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- CALL TO ACTION -->
+
+<section class="py-5">
+
+    <div class="container text-center">
+
+        <h2 class="fw-bold">
+
+            Start Managing Your Solar Panels
+
+        </h2>
+
+
+        <p class="text-secondary mb-4">
+
+            Register your account and manage solar panel
+            maintenance with SolarGuard AI.
+
+        </p>
+
+
+        <a href="{{ url_for('auth.register') }}"
+           class="btn-green">
+
+            Create Account →
+
+        </a>
+
+    </div>
+
+</section>
+
 
 {% endblock %}

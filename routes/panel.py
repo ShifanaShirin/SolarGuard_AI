@@ -189,3 +189,51 @@ def view_panel(panel_id):
         "panels/panel_details.html",
         panel=panel
     )
+
+# =========================================================
+# PANEL PERFORMANCE ANALYTICS
+# =========================================================
+
+@panel_bp.route(
+    "/panels/view/<int:panel_id>/analytics"
+)
+@login_required
+def panel_analytics(panel_id):
+
+    user_id = session["user_id"]
+
+    # -----------------------------------------------------
+    # Verify panel belongs to logged-in user
+    # -----------------------------------------------------
+
+    panel = PanelService.get_panel_by_id(
+        panel_id,
+        user_id
+    )
+
+    if panel is None:
+
+        flash(
+            "Panel not found.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("panel.my_panels")
+        )
+
+    # -----------------------------------------------------
+    # Get performance analytics
+    # -----------------------------------------------------
+
+    analytics = (
+        PanelService.get_panel_performance_analytics(
+            panel_id
+        )
+    )
+
+    return render_template(
+        "panels/panel_analytics.html",
+        panel=panel,
+        analytics=analytics
+    )

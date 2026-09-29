@@ -1,0 +1,479 @@
+{% extends "layouts/user_dashboard_base.html" %}
+
+{% block title %}
+Panel Performance Analytics | SolarGuard AI
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- ================================================= -->
+    <!-- HEADER -->
+    <!-- ================================================= -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                Performance Analytics
+            </h2>
+
+            <p class="text-muted mb-0">
+                Monitor the AI-based performance analysis of your solar panel.
+            </p>
+
+        </div>
+
+        <a
+            href="{{ url_for('panel.view_panel', panel_id=panel.panel_id) }}"
+            class="btn btn-outline-success"
+        >
+            ← Back to Panel
+        </a>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- PANEL INFORMATION -->
+    <!-- ================================================= -->
+
+    <div class="card border-0 shadow-lg mb-4">
+
+        <div class="card-body p-4">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <small class="text-muted">
+                        Solar Panel
+                    </small>
+
+                    <h4 class="fw-bold mt-1">
+                        {{ panel.panel_name }}
+                    </h4>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <small class="text-muted">
+                        Manufacturer
+                    </small>
+
+                    <h5 class="fw-semibold mt-1">
+                        {{ panel.manufacturer or "Not available" }}
+                    </h5>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <small class="text-muted">
+                        Location
+                    </small>
+
+                    <h5 class="fw-semibold mt-1">
+                        {{ panel.location or "Not available" }}
+                    </h5>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {% if analytics.total_analyses > 0 %}
+
+
+    <!-- ================================================= -->
+    <!-- MAIN STATISTICS -->
+    <!-- ================================================= -->
+
+    <div class="row g-4 mb-4">
+
+
+        <!-- Current Efficiency -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card analytics-card border-0 shadow-lg h-100">
+
+                <div class="card-body">
+
+                    <div class="analytics-icon">
+                        ⚡
+                    </div>
+
+                    <small class="text-muted">
+                        Current Efficiency
+                    </small>
+
+                    <h2 class="fw-bold text-success mt-2">
+
+                        {{ analytics.current_efficiency }}%
+
+                    </h2>
+
+                    <small class="text-muted">
+                        Latest AI analysis
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Average Efficiency -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card analytics-card border-0 shadow-lg h-100">
+
+                <div class="card-body">
+
+                    <div class="analytics-icon">
+                        📊
+                    </div>
+
+                    <small class="text-muted">
+                        Average Efficiency
+                    </small>
+
+                    <h2 class="fw-bold mt-2">
+
+                        {{ analytics.average_efficiency }}%
+
+                    </h2>
+
+                    <small class="text-muted">
+                        Across all AI analyses
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Highest Efficiency -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card analytics-card border-0 shadow-lg h-100">
+
+                <div class="card-body">
+
+                    <div class="analytics-icon">
+                        ↑
+                    </div>
+
+                    <small class="text-muted">
+                        Highest Efficiency
+                    </small>
+
+                    <h2 class="fw-bold text-success mt-2">
+
+                        {{ analytics.highest_efficiency }}%
+
+                    </h2>
+
+                    <small class="text-muted">
+                        Best recorded analysis
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Lowest Efficiency -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card analytics-card border-0 shadow-lg h-100">
+
+                <div class="card-body">
+
+                    <div class="analytics-icon">
+                        ↓
+                    </div>
+
+                    <small class="text-muted">
+                        Lowest Efficiency
+                    </small>
+
+                    <h2 class="fw-bold text-warning mt-2">
+
+                        {{ analytics.lowest_efficiency }}%
+
+                    </h2>
+
+                    <small class="text-muted">
+                        Lowest recorded analysis
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================================= -->
+    <!-- AI ANALYSIS SUMMARY -->
+    <!-- ================================================= -->
+
+    <div class="row g-4 mb-4">
+
+
+        <div class="col-lg-4">
+
+            <div class="card border-0 shadow-lg h-100">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold mb-4">
+                        AI Analysis Summary
+                    </h5>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Total Analyses
+                        </span>
+
+                        <strong>
+                            {{ analytics.total_analyses }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Clean Results
+                        </span>
+
+                        <strong class="text-success">
+                            {{ analytics.clean_count }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Fault Results
+                        </span>
+
+                        <strong class="text-warning">
+                            {{ analytics.fault_count }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Maintenance Required
+                        </span>
+
+                        <strong class="text-danger">
+                            {{ analytics.maintenance_required }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- EFFICIENCY TREND -->
+        <!-- ================================================= -->
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-lg h-100">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-bold mb-4">
+                        Efficiency Trend
+                    </h5>
+
+
+                    {% for item in analytics.detections %}
+
+                    <div class="mb-4">
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <div>
+
+                                <strong>
+                                    {{ item.efficiency }}%
+                                </strong>
+
+                                <span class="text-muted ms-2">
+                                    {{ item.defect }}
+                                </span>
+
+                            </div>
+
+                            <small class="text-muted">
+
+                                {{ item.date.strftime('%d %b %Y') }}
+
+                            </small>
+
+                        </div>
+
+
+                        <div
+                            class="progress"
+                            style="height:10px;"
+                        >
+
+                            <div
+    class="progress-bar bg-success efficiency-bar"
+    role="progressbar"
+    data-efficiency="{{ item.efficiency }}"
+    aria-valuenow="{{ item.efficiency }}"
+    aria-valuemin="0"
+    aria-valuemax="100"
+></div>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- ================================================= -->
+    <!-- NO ANALYSIS -->
+    <!-- ================================================= -->
+
+    <div class="card border-0 shadow-lg">
+
+        <div class="card-body text-center py-5">
+
+            <div style="font-size:60px;">
+                📊
+            </div>
+
+            <h4 class="fw-bold mt-3">
+                No Performance Data Available
+            </h4>
+
+            <p class="text-muted">
+
+                This panel has not been analyzed by SolarGuard AI yet.
+
+            </p>
+
+            <a
+                href="{{ url_for('ai.detection') }}"
+                class="btn btn-success px-4"
+            >
+                🤖 Analyze Panel
+            </a>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+
+<style>
+
+.analytics-card {
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.analytics-card:hover {
+    transform: translateY(-3px);
+}
+
+.analytics-icon {
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(25,135,84,0.12);
+
+    font-size: 22px;
+
+    margin-bottom: 15px;
+}
+
+.summary-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+
+</style>
+<script>
+document.querySelectorAll(".efficiency-bar").forEach(function (bar) {
+    const efficiency = bar.getAttribute("data-efficiency");
+    bar.style.width = efficiency + "%";
+});
+</script>
+
+{% endblock %}

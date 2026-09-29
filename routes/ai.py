@@ -18,7 +18,7 @@ from utils.auth import login_required
 from services.panel_service import PanelService
 from services.ai_detection_service import AIDetectionService
 from ai.prediction.predict import predict_image
-
+from database.db import get_connection
 
 # ============================================================
 # BLUEPRINT
@@ -427,6 +427,68 @@ def detection():
                 url_for("ai.detection")
             )
 
+        # ====================================================
+        # LOW EFFICIENCY ALERT
+        # ====================================================
+
+        LOW_EFFICIENCY_THRESHOLD = 70.0
+
+        if estimated_efficiency < LOW_EFFICIENCY_THRESHOLD:
+
+            connection = get_connection()
+
+            if connection:
+
+                cursor = None
+
+                try:
+
+                    cursor = connection.cursor()
+
+                    cursor.execute(
+                        """
+                        INSERT INTO notifications
+                        (
+                            user_id,
+                            title,
+                            message,
+                            notification_type,
+                            is_read
+                        )
+                        VALUES (%s, %s, %s, %s, %s)
+                        """,
+                        (
+                            user_id,
+                            "Low Panel Efficiency Alert",
+                            (
+                                f"Solar panel '{panel['panel_name']}' "
+                                f"has an estimated efficiency of "
+                                f"{estimated_efficiency}%. "
+                                "Maintenance may be required."
+                            ),
+                            "AI Alert",
+                            0
+                        )
+                    )
+
+                    connection.commit()
+
+                except Exception as e:
+
+                    if connection:
+                        connection.rollback()
+
+                    print(
+                        "Low efficiency notification error:",
+                        e
+                    )
+
+                finally:
+
+                    if cursor:
+                        cursor.close()
+
+                    connection.close()
 
         # ====================================================
         # SHOW RESULT
