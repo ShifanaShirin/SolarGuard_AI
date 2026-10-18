@@ -244,21 +244,37 @@
                             </td>
 
 
-                            <!-- Action -->
+                            
+<!-- Action -->
+<td>
+    <div class="d-flex align-items-center gap-2 flex-nowrap">
 
-                            <td>
+        <a href="{{ url_for(
+            'ai.analysis_detail',
+            detection_id=detection.detection_id
+        ) }}"
+           class="btn btn-sm btn-outline-success text-nowrap">
 
-                                <a href="{{ url_for(
-                                    'ai.analysis_detail',
-                                    detection_id=detection.detection_id
-                                ) }}"
-                                class="btn btn-sm btn-outline-success">
+            <i class="fas fa-eye me-1"></i>
+            View Details
 
-                                    View Details
+        </a>
 
-                                </a>
+        <a href="{{ url_for(
+            'ai.download_report',
+            detection_id=detection.detection_id
+        ) }}"
+           class="btn btn-sm btn-success text-nowrap">
 
-                            </td>
+            <i class="fas fa-file-pdf me-1"></i>
+            Download PDF
+
+        </a>
+
+    </div>
+</td>
+
+
 
                         </tr>
 

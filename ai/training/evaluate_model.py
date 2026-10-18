@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(
 DATASET_DIR = os.path.join(
     BASE_DIR,
     "dataset",
-    "solar_panel_dataset"
+    "solar_panel_dataset_clean"
 )
 
 MODEL_DIR = os.path.join(
