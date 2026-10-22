@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block title %}Register | SolarGuard AI{% endblock %}
@@ -71,7 +72,7 @@
 </div>
 {% endif %}
 
-                <form method="POST">
+                <form method="POST" id="registerForm">
 
                     <div class="mb-3">
 
@@ -98,9 +99,11 @@
                         <input
                             type="email"
                             class="form-control"
+                            id="email"
                             name="email"
                             value="{{ form_data.email if form_data else '' }}"
                             placeholder="Enter your email"
+                            maxlength="254"
                             required>
 
                     </div>
@@ -111,13 +114,21 @@
                             Phone Number
                         </label>
 
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="phone"
-                            value="{{ form_data.phone if form_data else '' }}"
-                            placeholder="Enter phone number"
-                            required>
+                        
+<input
+    type="tel"
+    class="form-control"
+    id="phone"
+    name="phone"
+    value="{{ form_data.phone if form_data else '' }}"
+    placeholder="Enter 10-digit mobile number"
+    pattern="[6-9][0-9]{9}"
+    minlength="10"
+    maxlength="10"
+    inputmode="numeric"
+    title="Enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9"
+    required>
+
 
                     </div>
 
@@ -130,9 +141,24 @@
                         <input
                             type="password"
                             class="form-control"
+                            id="password"
                             name="password"
                             placeholder="Create password"
+                            minlength="8"
+                            maxlength="128"
+                            autocomplete="new-password"
+                            aria-describedby="passwordRequirements"
                             required>
+
+                        
+<div id="passwordRequirements"
+     class="form-text"
+     style="color: #cbd5e1 !important;">
+    Password must contain at least 8 characters,
+    one uppercase letter, one lowercase letter,
+    one number, and one special character.
+</div>
+
 
                     </div>
 
@@ -145,8 +171,12 @@
                         <input
                             type="password"
                             class="form-control"
+                            id="confirm_password"
                             name="confirm_password"
                             placeholder="Confirm password"
+                            minlength="8"
+                            maxlength="128"
+                            autocomplete="new-password"
                             required>
 
                     </div>
@@ -207,5 +237,115 @@
     </div>
 
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("registerForm");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirm_password");
+    const phone = document.getElementById("phone");
+
+    // Validate Indian mobile number
+phone.addEventListener("input", function () {
+    phone.value = phone.value.replace(/\D/g, "").slice(0, 10);
+    phone.setCustomValidity("");
+
+    if (phone.value.length > 0 && !/^[6-9][0-9]{9}$/.test(phone.value)) {
+        phone.setCustomValidity(
+            "Enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9."
+        );
+    }
+});
+
+    // Validate email format
+    email.addEventListener("input", function () {
+        email.setCustomValidity("");
+
+        if (email.value && !email.validity.valid) {
+            email.setCustomValidity(
+                "Please enter a valid email address, such as name@gmail.com."
+            );
+        }
+    });
+
+    email.addEventListener("blur", function () {
+        if (email.value && !email.validity.valid) {
+            email.setCustomValidity(
+                "Please enter a valid email address, such as name@gmail.com."
+            );
+        }
+    });
+
+    // Validate password requirements
+    function validatePassword() {
+
+        const value = password.value;
+
+        if (value.length < 8) {
+            password.setCustomValidity(
+                "Password must contain at least 8 characters."
+            );
+        } else if (!/[A-Z]/.test(value)) {
+            password.setCustomValidity(
+                "Password must contain at least one uppercase letter."
+            );
+        } else if (!/[a-z]/.test(value)) {
+            password.setCustomValidity(
+                "Password must contain at least one lowercase letter."
+            );
+        } else if (!/[0-9]/.test(value)) {
+            password.setCustomValidity(
+                "Password must contain at least one number."
+            );
+        } else if (!/[^A-Za-z0-9]/.test(value)) {
+            password.setCustomValidity(
+                "Password must contain at least one special character."
+            );
+        } else if (value.length > 128) {
+            password.setCustomValidity(
+                "Password cannot exceed 128 characters."
+            );
+        } else {
+            password.setCustomValidity("");
+        }
+
+        validateConfirmPassword();
+    }
+
+    // Validate confirmation password
+    function validateConfirmPassword() {
+
+        if (confirmPassword.value !== "" &&
+            password.value !== confirmPassword.value) {
+
+            confirmPassword.setCustomValidity(
+                "Passwords do not match."
+            );
+
+        } else {
+            confirmPassword.setCustomValidity("");
+        }
+    }
+
+    password.addEventListener("input", validatePassword);
+    confirmPassword.addEventListener("input", validateConfirmPassword);
+
+    // Final validation before submitting
+    form.addEventListener("submit", function (event) {
+
+        validatePassword();
+        validateConfirmPassword();
+
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            form.reportValidity();
+        }
+
+    });
+
+});
+</script>
 
 {% endblock %}
